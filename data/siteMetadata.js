@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'Next.js Starter Blog',
   author: 'Sufu Wang',
   headerTitle: 'Sufu.Wang',
-  description: 'A blog created with Next.js and Tailwind.css',
+  description: 'Say Something',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
