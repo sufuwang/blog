@@ -65,9 +65,11 @@ export default function Home({ posts }) {
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
-          <li key={stickyPost.slug} className="py-12">
-            <Item post={stickyPost} sticky />
-          </li>
+          {stickyPost && (
+            <li key={stickyPost.slug} className="py-12">
+              <Item post={stickyPost} sticky />
+            </li>
+          )}
           {postsWithoutSticky.slice(0, MAX_DISPLAY).map((post) => {
             return (
               <li key={post.slug} className="py-12">
