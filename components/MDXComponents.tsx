@@ -5,7 +5,7 @@ import type { MDXComponents } from 'mdx/types'
 import Image from './Image'
 import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
-import { Descriptions, Badge } from 'antd'
+import { Descriptions, Badge, Collapse } from 'antd'
 
 export const components: MDXComponents = {
   Image,
@@ -16,4 +16,5 @@ export const components: MDXComponents = {
   BlogNewsletterForm,
   Descriptions,
   Badge,
+  Collapse,
 }
