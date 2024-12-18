@@ -1,10 +1,11 @@
 import { createContext } from 'react'
 import type { Dispatch } from 'react'
-import siteMetadata from '@/data/siteMetadata'
+
+export type Theme = 'dark' | 'light' | 'system'
 
 const ThemeContext = createContext<{
-  theme: string | null
-  setTheme: Dispatch<string>
-}>({ theme: localStorage.getItem('theme'), setTheme: () => null })
+  theme: Theme
+  setTheme: Dispatch<Theme>
+}>({ theme: 'light', setTheme: () => null })
 
 export default ThemeContext
