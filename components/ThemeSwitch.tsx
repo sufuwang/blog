@@ -3,7 +3,7 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Menu, RadioGroup, Transition } from '@headlessui/react'
-import ThemeContext from '@/app/theme-context'
+import ThemeContext, { Theme } from '@/app/theme-context'
 
 const Sun = () => (
   <svg
@@ -56,7 +56,7 @@ const ThemeSwitch = () => {
   useEffect(() => setMounted(true), [])
 
   useEffect(() => {
-    setThemeOfContext(resolvedTheme!)
+    setThemeOfContext(resolvedTheme as Theme)
   }, [resolvedTheme])
 
   return (
