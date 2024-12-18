@@ -12,7 +12,6 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
 
 ## 个人情况
 
-
 <Descriptions
   bordered
   size='small'
@@ -35,11 +34,10 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   ].map((row, key) => ({ ...row, key }))}
 />
 
-## 在校经历
+## 教育背景
 
 <Collapse
   size='small'
-  defaultActiveKey={[1]}
   items={[
     {
       label: <div>本科 / ⻄安建筑科技⼤学华清学院 / 信息与控制⼯程学院 / 智能建筑 / 2014-2018</div>,
@@ -79,15 +77,16 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
 />
 
 ## 工作经历
+
 <Collapse
   size='small'
-  defaultActiveKey={[3]}
+  defaultActiveKey={[0]}
   items={[
     {
       label: <div>深圳 / 腾讯集团 / 云与智慧产业事业群(CSIG)-医疗与健康事业部 / 2021.7-2022.10</div>,
       children: <ul className="m-0">
         <li>技术栈：Vue / Uniapp / VitePress / Webpack / Vite</li>
-        <li>联合腾讯云深度学习平台，致⼒于辅助政府机构进⾏社会医疗普查和疾病救治、推动医院和科研院所的研究进展，以及全流程辅助患者就诊。参与多个项目开发</li>
+        <li>联合腾讯云深度学习平台，致⼒于辅助政府机构进⾏社会医疗普查和疾病救治、推动医院和科研院所的研究进展，以及全流程辅助患者就诊。期间参与多个项目开发</li>
         <ol>
           <li>为公司级 UI 组件库 Tdesign-Vue 的建设做出贡献</li>
           <li>开发《腾讯健康》& 《患者档案》⼩程序和 PC 端</li>
@@ -118,21 +117,23 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
       </ul>,
     },
     {
-      label: <div>苏州 / ZOOM / PWA / 2022.10-2023.3</div>,
-      children: '-'
-      /* children: <ul className="m-0">
-        <li>技术栈：Vue / Uniapp / TypeScript</li>
-        <li></li>
+      label: <div>苏州 / ZOOM / PWA 组 / 2022.10-2023.3</div>,
+      children: <ul className="m-0">
+        <li>技术栈：React / Rxjs / TypeScript</li>
+        <li>公司战略将 ZOOM 客户端复刻至 Web 端。期间参与 Chat 模块开发</li>
         <ol>
-          <li></li>
+          <li>消息总线</li>
+          <li>富文本消息的解包和封包</li>
+          <li>静态资源的性能优化</li>
+          <li>Service Worker 缓存</li>
         </ol>
-      </ul>, */
+      </ul>,
     },
     {
       label: <div>⻄安 / 中科曙光集团-国家超级计算中⼼ / ⾼性能计算事业部(HPC) / 2023.3-2024.2</div>,
       children: <ul className="m-0">
         <li>技术栈：Vue / Vite / TypeScript</li>
-        <li>以公司内部⾼性能液冷服务器集群为基础，提供⼀系列在公有云、私有云、混合云⽅⾯的⾼性能计算产品。担任国家科技部《超算互联⽹》项⽬中算⼒平台产品化模块的负责⼈，负责如下工作</li>
+        <li>以公司内部⾼性能液冷服务器集群为基础，提供⼀系列在公有云、私有云、混合云⽅⾯的⾼性能计算产品。担任国家科技部《超算互联⽹》项⽬中算⼒平台产品化模块的负责⼈，期间负责如下工作</li>
         <ol>
           <li>负责整个 HPC 算⼒平台的性能优化（Service Worker、懒加载、缓存、打包策略）</li>
           <li>负责为公司内部深度学习平台提供技术⽀持</li>
@@ -153,3 +154,25 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
     },
   ].map((row, key) => ({ ...row, key }))}
 />
+
+{/* ## 开源贡献
+
+<Table
+  size='small'
+  className='not-prose overflow-x-auto'
+  pagination={false}
+  bordered
+  columns={[
+    { title: '社区', dataIndex: 'module' },
+    { title: '链接', dataIndex: 'links' },
+  ].map((row) => ({ ...row, key: row.dataIndex }))}
+  dataSource={[
+    { module: 'Vite', rows: [{ link: 'baidu.com', text: 'baidu' }, { link: 'baidu.com', text: 'baidu' }] },
+    { module: 'Vue', rows: [] },
+    { module: 'Uniapp', rows: [] }
+  ].map((row, key) => ({
+    ...row,
+    key,
+    links: <ol>{row.rows.map(row => <li><a>{row.text}</a></li>)}</ol>
+  }))}
+/> */}

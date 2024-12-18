@@ -4,8 +4,8 @@ import type { Dispatch } from 'react'
 export type Theme = 'dark' | 'light' | 'system'
 
 const ThemeContext = createContext<{
-  theme: Theme
+  theme: Theme | ''
   setTheme: Dispatch<Theme>
-}>({ theme: 'light', setTheme: () => null })
+}>({ theme: '', setTheme: () => null })
 
 export default ThemeContext
