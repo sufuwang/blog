@@ -9,7 +9,7 @@ const calc = () => {
   return [
     `已生活 ${Math.floor(birthday / 365)} 年 ${Math.floor(birthday % 365)} 天`,
     `已工作 ${Math.floor(work / 365)} 年 ${Math.floor(work % 365)} 天`,
-  ].join(' / ')
+  ]
 }
 
 const CountDown = () => {
@@ -26,7 +26,15 @@ const CountDown = () => {
     return () => clearInterval(interval)
   }, [])
 
-  return <span>{str}</span>
+  return (
+    <div className="flex w-full flex-wrap">
+      {str.map((row, key) => (
+        <span key={key} className="mr-2">
+          {row}
+        </span>
+      ))}
+    </div>
+  )
 }
 
 export default CountDown
