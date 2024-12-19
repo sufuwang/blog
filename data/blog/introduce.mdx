@@ -80,7 +80,6 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
 
 <Collapse
   size='small'
-  defaultActiveKey={[0]}
   items={[
     {
       label: <div>深圳 / 腾讯集团 / 云与智慧产业事业群(CSIG)-医疗与健康事业部 / 2021.7-2022.10</div>,
@@ -155,7 +154,7 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   ].map((row, key) => ({ ...row, key }))}
 />
 
-{/* ## 开源贡献
+## 开源贡献
 
 <Table
   size='small'
@@ -165,14 +164,49 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   columns={[
     { title: '社区', dataIndex: 'module' },
     { title: '链接', dataIndex: 'links' },
+    { title: 'PR 描述 / 备注', dataIndex: 'desc' },
   ].map((row) => ({ ...row, key: row.dataIndex }))}
   dataSource={[
-    { module: 'Vite', rows: [{ link: 'baidu.com', text: 'baidu' }, { link: 'baidu.com', text: 'baidu' }] },
-    { module: 'Vue', rows: [] },
-    { module: 'Uniapp', rows: [] }
+    {
+      module: 'Vite',
+      rows: [
+        { link: 'https://github.com/vitejs/vite/pulls?q=is%3Apr+author%3Asufuwang', text: 'Github PR' },
+        { link: 'https://github.com/vitejs/vite/issues?q=is%3Aissue+author%3Asufuwang', text: 'Github Issues' },
+      ],
+      desc: '解决 Vite 在打包时，长度判断错误的问题',
+    },
+    {
+      module: 'VitePress',
+      rows: [
+        { link: 'https://github.com/vuejs/vitepress/issues?q=is%3Aissue+author%3Asufuwang+', text: 'Github Issues' },
+      ],
+      desc: '讨论主题切换的回调问题'
+    },
+    {
+      module: 'Uniapp',
+      rows: [
+        { link: 'https://github.com/dcloudio/uni-app/issues?q=is%3Aissue+author%3Asufuwang', text: 'Github Issues' }
+      ],
+      desc: '讨论 UniApp3 所遇到的 Bug'
+    },
+    {
+      module: 'Tdesign',
+      rows: [
+        { link: 'https://github.com/Tencent/tdesign-vue-next/pulls?q=is%3Apr+author%3Asufuwang', text: 'Github PR'},
+        { link: 'https://github.com/Tencent/tdesign-vue-next/issues?q=is%3Aissue+author%3Asufuwang', text: 'Github Issues' },
+      ],
+      desc: '维护 Vue3 版本下的 Tree 组件',
+    },
+    {
+      module: 'DevCloudFE',
+      rows: [
+        { link: 'https://github.com/DevCloudFE/vue-devui/pulls?q=is%3Apr+author%3Asufuwang', text: 'Github PR'},
+      ],
+      desc: '维护 Vue3 版本下的 Tree 组件',
+    },
   ].map((row, key) => ({
     ...row,
     key,
-    links: <ol>{row.rows.map(row => <li><a>{row.text}</a></li>)}</ol>
+    links: row.rows.map(row => <a key={row.link} className="mr-4 inline-block whitespace-nowrap" href={row.link} target="_blank">{row.text}</a>)
   }))}
-/> */}
+/>
