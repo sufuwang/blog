@@ -5238,7 +5238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.11":
+"dayjs@npm:^1.11.11, dayjs@npm:^1.11.13":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
@@ -12280,6 +12280,7 @@ react@rc:
     body-scroll-lock: ^4.0.0-beta.0
     contentlayer2: 0.5.3
     cross-env: ^7.0.3
+    dayjs: ^1.11.13
     esbuild: 0.20.2
     eslint: ^9.14.0
     eslint-config-next: 15.0.2
