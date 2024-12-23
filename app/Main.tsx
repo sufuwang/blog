@@ -50,7 +50,6 @@ const Item = ({ post, sticky = false }) => {
 }
 
 export default function Home({ posts }) {
-  console.info('posts: ', posts)
   const postsWithoutSticky = posts.filter((post) => !post.sticky)
   const stickyPost = posts.find((post) => post.sticky)
   return (
