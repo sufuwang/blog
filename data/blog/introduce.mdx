@@ -160,34 +160,34 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   pagination={false}
   bordered
   columns={[
-    { title: '项目名称', dataIndex: 'name' },
+    { title: '名称', dataIndex: 'name' },
     { title: '链接', dataIndex: 'link' },
     { title: '标签', dataIndex: 'tags' },
-    { title: '备注', dataIndex: 'desc' },
+    { title: '描述', dataIndex: 'desc' },
   ].map((row) => ({ ...row, key: row.dataIndex }))}
   dataSource={[
     {
       name: 'Blog',
       link: 'https://github.com/sufuwang/blog',
-      tags: ['TS', 'Nextjs', 'Tailwindcss'],
+      tags: ['Nextjs'],
       desc: '存储简历和文档的 Web 项目',
     },
     {
       name: 'Secrets',
       link: 'https://github.com/sufuwang/secrets',
-      tags: ['TS', 'Uniapp', 'Vue3'],
+      tags: ['Uniapp'],
       desc: '用于管理计划的微信小程序，可以关注和评论他人的计划',
     },
     {
       name: 'SSO',
       link: 'https://github.com/sufuwang/sso',
-      tags: ['TS', 'Nestjs', 'Mysql', 'Redis'],
+      tags: ['Nestjs'],
       desc: '为其他项目提供后端服务',
     },
   ].map(row => ({
     ...row,
     key: row.name,
-    link: <a href={row.link}>Github</a>,
+    link: <a href={row.link}>Github Repo</a>,
     tags: row.tags.map((tag) => <Tag key={tag}>{tag}</Tag>),
   }))}
 />
