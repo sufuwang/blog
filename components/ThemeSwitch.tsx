@@ -3,7 +3,7 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { Menu, RadioGroup, Transition } from '@headlessui/react'
-import ThemeContext, { Theme } from '@/app/theme-context'
+import ThemeContext, { Theme } from '@/app/(default)/theme-context'
 
 const Sun = () => (
   <svg
