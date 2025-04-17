@@ -25,7 +25,7 @@ export default function RandomMountain() {
       }
     }
 
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshLambertMaterial({
       color: new THREE.Color('orange'),
       wireframe: true,
     })
