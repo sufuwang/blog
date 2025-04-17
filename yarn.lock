@@ -11852,6 +11852,13 @@ react@rc:
   languageName: node
   linkType: hard
 
+"simplex-noise@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "simplex-noise@npm:4.0.3"
+  checksum: b47720a540695947cd60b0571b4427b68392b1c75e76e27278e3c1b7ea13301d46d60fe9a81ff6a42b1048f2548c9c6687630b984ec0b59d7ab4e79969052462
+  languageName: node
+  linkType: hard
+
 "sirv@npm:^2.0.3":
   version: 2.0.4
   resolution: "sirv@npm:2.0.4"
@@ -12371,6 +12378,7 @@ react@rc:
     remark-gfm: ^4.0.0
     remark-github-blockquote-alert: ^1.2.1
     remark-math: ^6.0.0
+    simplex-noise: ^4.0.3
     tailwindcss: ^3.4.14
     three: ^0.175.0
     typescript: ^5.1.3
