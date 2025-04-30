@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-// @ts-ignore
-import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 
 export default function House() {
   const getTexture = (name = 'zhuan.jpg') => {
