@@ -75,13 +75,26 @@ export default function Material() {
     // 渲染器开启阴影
     renderer.shadowMap.enabled = true
 
+    const orbitControls = new OrbitControls(camera, renderer.domElement)
+    orbitControls.autoRotate = true
+    orbitControls.autoRotateSpeed = 2
+    orbitControls.enableDamping = true
+    orbitControls.enablePan = false
+    orbitControls.enableZoom = false
+    orbitControls.maxPolarAngle = Math.PI / 2
+    orbitControls.addEventListener('change', () => {
+      // console.log(camera.position, orbitControls.target)
+    })
+
+    gui.add(orbitControls, 'autoRotateSpeed', 0, 20)
+
     function render() {
+      orbitControls.update()
       renderer.render(scene, camera)
       requestAnimationFrame(render)
     }
     render()
 
     document.body.append(renderer.domElement)
-    new OrbitControls(camera, renderer.domElement)
   }, [])
 }
