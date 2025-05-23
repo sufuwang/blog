@@ -1,8 +1,25 @@
+import { useEffect } from 'react'
 import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 // @ts-ignore
-import { useEffect } from 'react'
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+// @ts-ignore
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
+// @ts-ignore
+import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js'
+// @ts-ignore
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
+// @ts-ignore
+import { AfterimagePass } from 'three/addons/postprocessing/AfterimagePass.js'
+// @ts-ignore
+import { FilmPass } from 'three/addons/postprocessing/FilmPass.js'
+// @ts-ignore
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js'
+// @ts-ignore
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+// @ts-ignore
+import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js'
 
 type T = THREE.Mesh<THREE.BoxGeometry, THREE.MeshLambertMaterial, THREE.Object3DEventMap> & {
   _id: string
@@ -33,6 +50,40 @@ export default function InfiniteTube() {
     const renderer = new THREE.WebGLRenderer()
     renderer.setSize(width, height)
 
+    const camera = new THREE.PerspectiveCamera(100, width / height, 1, 5000)
+    camera.position.set(400, 400, 400)
+    camera.lookAt(0, 0, 0)
+
+    const composer = new EffectComposer(renderer)
+    const renderPass = new RenderPass(scene, camera)
+    composer.addPass(renderPass)
+
+    const v = new THREE.Vector2(window.innerWidth, window.innerWidth)
+
+    const outlinePass = new OutlinePass(v, scene, camera)
+    outlinePass.visibleEdgeColor.set('orange')
+    outlinePass.edgeStrength = 10
+    outlinePass.edgeThickness = 10
+    outlinePass.pulsePeriod = 1
+    composer.addPass(outlinePass)
+
+    const bloomPass = new UnrealBloomPass(v)
+    bloomPass.strength = 0.5
+    composer.addPass(bloomPass)
+
+    const afterimagePass = new AfterimagePass()
+    composer.addPass(afterimagePass)
+
+    const filmPass = new FilmPass(0.5, false)
+    composer.addPass(filmPass)
+
+    const pixelRatio = renderer.getPixelRatio()
+    const smaaPass = new SMAAPass(width * pixelRatio, height * pixelRatio)
+    composer.addPass(smaaPass)
+
+    // const gammaPass = new ShaderPass(GammaCorrectionShader)
+    // composer.addPass(gammaPass)
+
     {
       const group = new THREE.Group()
       const box = generateBox('blue', 0, 0, 0)
@@ -60,6 +111,16 @@ export default function InfiniteTube() {
           }
         })
 
+        if (intersections.length) {
+          outlinePass.selectedObjects = [intersections[0].object]
+          if (!composer.passes.includes(bloomPass)) {
+            composer.addPass(bloomPass)
+          }
+        } else {
+          outlinePass.selectedObjects = []
+          composer.removePass(bloomPass)
+        }
+
         {
           const { x, y, z } = camera.position
           if (
@@ -85,12 +146,9 @@ export default function InfiniteTube() {
     const axesHelper = new THREE.AxesHelper(400)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera(100, width / height, 1, 5000)
-    camera.position.set(400, 400, 400)
-    camera.lookAt(0, 0, 0)
-
     function render() {
-      renderer.render(scene, camera)
+      // renderer.render(scene, camera)
+      composer.render()
       requestAnimationFrame(render)
     }
     render()
