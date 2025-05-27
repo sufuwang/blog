@@ -5,37 +5,39 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
+import { Tween, Easing, Group } from '@tweenjs/tween.js'
 
 export default function RepoPage() {
   const scene = new THREE.Scene()
   const renderer = new THREE.WebGLRenderer()
 
   useEffect(() => {
-    const geometry = new THREE.BoxGeometry(100, 100, 100)
+    const geometry = new THREE.BoxGeometry(60, 60, 60)
     const material = new THREE.MeshLambertMaterial({
       color: new THREE.Color('orange'),
+      side: THREE.DoubleSide,
     })
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.set(0, 0, 0)
     scene.add(mesh)
 
-    const pointLight = new THREE.PointLight(0xffffff, 40000)
-    pointLight.position.set(120, 120, 120)
+    const pointLight = new THREE.PointLight(0xffffff, 500000)
+    pointLight.position.set(300, 300, 300)
     scene.add(pointLight)
 
-    {
-      const pointLight = new THREE.PointLight(0xffffff, 40000)
-      pointLight.position.set(-120, -120, -120)
-      scene.add(pointLight)
-    }
+    // {
+    //   const pointLight = new THREE.PointLight(0xffffff, 40000)
+    //   pointLight.position.set(-120, -120, -120)
+    //   scene.add(pointLight)
+    // }
 
-    const axesHelper = new THREE.AxesHelper(200)
+    const axesHelper = new THREE.AxesHelper(300)
     scene.add(axesHelper)
 
     const width = window.innerWidth
     const height = window.innerHeight
     const camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000)
-    camera.position.set(200, 200, 200)
+    camera.position.set(400, 400, 400)
     camera.lookAt(0, 0, 0)
     renderer.setSize(width, height)
 
@@ -77,7 +79,20 @@ export default function RepoPage() {
     document.body.appendChild(renderer.domElement)
     new OrbitControls(camera, renderer.domElement)
 
+    const tween = new Tween(mesh.position).to({ x: 200 }, 2000).easing(Easing.Quadratic.InOut)
+    const tween2 = new Tween(mesh.rotation).to({ x: Math.PI }, 2000).easing(Easing.Quadratic.InOut)
+    const tween3 = new Tween(mesh.position).to({ x: 0 }, 1000).easing(Easing.Quadratic.Out)
+
+    tween.chain(tween2)
+    tween2.chain(tween3)
+    tween3.chain(tween)
+    tween.start()
+
+    const group = new Group()
+    group.add(tween, tween2, tween3)
+
     function r() {
+      group.update()
       renderer.render(scene, camera)
       requestAnimationFrame(r)
     }
