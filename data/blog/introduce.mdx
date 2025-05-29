@@ -35,6 +35,70 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   ].map((row, key) => ({ ...row, key }))}
 />
 
+## 技术栈
+<Table
+  size='small'
+  className='not-prose overflow-x-auto'
+  pagination={false}
+  bordered
+  columns={[
+    { title: '方向', dataIndex: 'catalog' },
+    { title: '技术', dataIndex: 'technique' },
+  ]}
+  dataSource={[
+    {
+      catalog: '前端',
+      techniques: [
+        { text: 'Vue', status: 2 },
+        { text: 'React', status: 1 },
+        { text: 'Nuxt', status: 0, doing: false },
+        { text: 'Next', status: 0, doing: false },
+        { text: 'Uniapp', status: 2 },
+        { text: 'Three.js', status: 0, doing: true },
+        { text: 'Vite', status: 1 },
+        { text: 'Webpack', status: 1 },
+        { text: 'TypeScript', status: 2 },
+      ]
+    },
+    {
+      catalog: '后端',
+      techniques: [
+        { text: 'Nest', status: 0, doing: false },
+        { text: 'Mysql', status: 0 },
+        { text: 'Redis', status: 0 },
+        { text: 'Nginx', status: 0 },
+        { text: 'Docker', status: 1 },
+      ]
+    },
+    {
+      catalog: '建模',
+      techniques: [
+        { text: 'Blender', status: 0, doing: true },
+      ]
+    },
+    {
+      catalog: '自动化',
+      techniques: [
+        { text: 'LabView', status: 1 },
+      ]
+    },
+  ].map((row, key) => {
+    return {
+      key,
+      catalog: row.catalog,
+      technique: row.techniques.map((tech) =>
+        <Tag
+          bordered={tech.doing !== undefined}
+          icon={tech.doing ? <Badge status="processing" className='!mr-1' /> : tech.doing === false ? <Badge status="warning" className='!mr-1' /> :''}
+          color={tech.doing ? 'processing' : tech.doing === false ? 'warning' : ''}
+        >
+          {tech.text}
+        </Tag>
+      ),
+    }
+  })}
+/>
+
 ## 教育背景
 <Collapse
   size='small'
@@ -188,7 +252,7 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
     ...row,
     key: row.name,
     link: <a href={row.link}>Github Repo</a>,
-    tags: row.tags.map((tag) => <Tag key={tag}>{tag}</Tag>),
+    tags: row.tags.map((tag) => <Tag key={tag} bordered={false}>{tag}</Tag>),
   }))}
 />
 
