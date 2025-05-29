@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 import { Tween, Easing, Group } from '@tweenjs/tween.js'
+import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/Addons.js'
 
 export default function RepoPage() {
   const scene = new THREE.Scene()
@@ -19,6 +20,13 @@ export default function RepoPage() {
     })
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.set(0, 0, 0)
+    {
+      const ele = document.createElement('div')
+      ele.innerHTML = '<p style="background:#fff;padding: 10px;">这是 box1</p>'
+      const obj = new CSS2DObject(ele)
+      obj.position.y = 60
+      mesh.add(obj)
+    }
     scene.add(mesh)
 
     const pointLight = new THREE.PointLight(0xffffff, 500000)
@@ -76,9 +84,6 @@ export default function RepoPage() {
       gui.add(camera, 'far', 300, 800).onChange(onChange)
     }
 
-    document.body.appendChild(renderer.domElement)
-    new OrbitControls(camera, renderer.domElement)
-
     const tween = new Tween(mesh.position).to({ x: 200 }, 2000).easing(Easing.Quadratic.InOut)
     const tween2 = new Tween(mesh.rotation).to({ x: Math.PI }, 2000).easing(Easing.Quadratic.InOut)
     const tween3 = new Tween(mesh.position).to({ x: 0 }, 1000).easing(Easing.Quadratic.Out)
@@ -91,8 +96,22 @@ export default function RepoPage() {
     const group = new Group()
     group.add(tween, tween2, tween3)
 
+    const css2Renderer = new CSS2DRenderer()
+    css2Renderer.setSize(width, height)
+    css2Renderer.domElement.style.position = 'absolute'
+    css2Renderer.domElement.style.pointerEvents = 'none'
+
+    const div = document.createElement('div')
+    div.style.position = 'relative'
+    div.appendChild(css2Renderer.domElement)
+
+    document.body.appendChild(div)
+    document.body.appendChild(renderer.domElement)
+    new OrbitControls(camera, renderer.domElement)
+
     function r() {
       group.update()
+      css2Renderer.render(scene, camera)
       renderer.render(scene, camera)
       requestAnimationFrame(r)
     }
