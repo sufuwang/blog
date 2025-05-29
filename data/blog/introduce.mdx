@@ -42,7 +42,7 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   pagination={false}
   bordered
   columns={[
-    { title: '方向', dataIndex: 'catalog' },
+    { title: '方向', dataIndex: 'catalog', minWidth: '80px' },
     { title: '技术', dataIndex: 'technique' },
   ]}
   dataSource={[
@@ -88,6 +88,7 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
       catalog: row.catalog,
       technique: row.techniques.map((tech) =>
         <Tag
+          className='!my-[2px]'
           bordered={tech.doing !== undefined}
           icon={tech.doing ? <Badge status="processing" className='!mr-1' /> : tech.doing === false ? <Badge status="warning" className='!mr-1' /> :''}
           color={tech.doing ? 'processing' : tech.doing === false ? 'warning' : ''}
