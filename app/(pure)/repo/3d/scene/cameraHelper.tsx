@@ -6,7 +6,12 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 import { Tween, Easing, Group } from '@tweenjs/tween.js'
-import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/Addons.js'
+import {
+  CSS2DObject,
+  CSS3DObject,
+  CSS2DRenderer,
+  CSS3DRenderer,
+} from 'three/examples/jsm/Addons.js'
 
 export default function RepoPage() {
   const scene = new THREE.Scene()
@@ -22,9 +27,17 @@ export default function RepoPage() {
     mesh.position.set(0, 0, 0)
     {
       const ele = document.createElement('div')
-      ele.innerHTML = '<p style="background:#fff;padding: 10px;">这是 box1</p>'
+      ele.innerHTML = '<p style="background:#fff;padding: 10px;">2D Object</p>'
       const obj = new CSS2DObject(ele)
       obj.position.y = 60
+      mesh.add(obj)
+    }
+    {
+      const ele = document.createElement('div')
+      ele.innerHTML = '<p style="background:#fff;padding: 10px;">3D Object</p>'
+      ele.style.backfaceVisibility = 'hidden'
+      const obj = new CSS3DObject(ele)
+      obj.position.y = -60
       mesh.add(obj)
     }
     scene.add(mesh)
@@ -100,18 +113,29 @@ export default function RepoPage() {
     css2Renderer.setSize(width, height)
     css2Renderer.domElement.style.position = 'absolute'
     css2Renderer.domElement.style.pointerEvents = 'none'
-
     const div = document.createElement('div')
     div.style.position = 'relative'
     div.appendChild(css2Renderer.domElement)
-
     document.body.appendChild(div)
+
+    const css3Renderer = new CSS3DRenderer()
+    css3Renderer.setSize(width, height)
+    css3Renderer.domElement.style.position = 'absolute'
+    css3Renderer.domElement.style.pointerEvents = 'none'
+    {
+      const div = document.createElement('div')
+      div.style.position = 'relative'
+      div.appendChild(css3Renderer.domElement)
+      document.body.appendChild(div)
+    }
+
     document.body.appendChild(renderer.domElement)
     new OrbitControls(camera, renderer.domElement)
 
     function r() {
       group.update()
       css2Renderer.render(scene, camera)
+      css3Renderer.render(scene, camera)
       renderer.render(scene, camera)
       requestAnimationFrame(r)
     }
