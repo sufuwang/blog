@@ -13,6 +13,27 @@ import {
   CSS3DRenderer,
 } from 'three/examples/jsm/Addons.js'
 
+const createCanvas = (text, img: HTMLImageElement | null = null, width = 80, height = 50) => {
+  const canvas = document.createElement('canvas')
+  const w = (canvas.width = width)
+  const h = (canvas.height = height)
+  const c = canvas.getContext('2d')!
+  if (img) {
+    c.drawImage(img, 0, 0, 20, 20)
+  }
+  c.fillStyle = 'rgba(80, 0, 0, 0.2)'
+  c.fillRect(0, 0, w, h)
+  // c.fillStyle = 'rgba(140, 0, 0, 0.4)'
+  // c.fillRect(10, 10, w - 20, h - 20)
+  c.translate(w / 2, h / 2)
+  c.fillStyle = '#ffffff'
+  c.font = 'normal 24px 微软雅黑'
+  c.textBaseline = 'middle'
+  c.textAlign = 'center'
+  c.fillText(text, 0, 0)
+  return canvas
+}
+
 export default function RepoPage() {
   const scene = new THREE.Scene()
   const renderer = new THREE.WebGLRenderer()
@@ -29,16 +50,39 @@ export default function RepoPage() {
       const ele = document.createElement('div')
       ele.innerHTML = '<p style="background:#fff;padding: 10px;">2D Object</p>'
       const obj = new CSS2DObject(ele)
-      obj.position.y = 60
+      obj.position.y = 80
       mesh.add(obj)
+
+      const texture = new THREE.CanvasTexture(createCanvas('Sprite'))
+      const spriteMaterial = new THREE.SpriteMaterial({
+        // color: 'lightgreen',
+        map: texture,
+      })
+      const tag = new THREE.Sprite(spriteMaterial)
+      tag.scale.set(70, 50, 50)
+      tag.position.y = 200
+      mesh.add(tag)
     }
     {
       const ele = document.createElement('div')
       ele.innerHTML = '<p style="background:#fff;padding: 10px;">3D Object</p>'
-      ele.style.backfaceVisibility = 'hidden'
+      // ele.style.backfaceVisibility = 'hidden'
       const obj = new CSS3DObject(ele)
-      obj.position.y = -60
+      obj.position.y = -80
       mesh.add(obj)
+
+      const img = new Image()
+      img.src = '/material/snow.png'
+      img.onload = function () {
+        const texture = new THREE.CanvasTexture(createCanvas('Sprite With Image', img, 240, 60))
+        const spriteMaterial = new THREE.SpriteMaterial({
+          map: texture,
+        })
+        const tag = new THREE.Sprite(spriteMaterial)
+        tag.scale.set(200, 60, 70)
+        tag.position.y = -200
+        mesh.add(tag)
+      }
     }
     scene.add(mesh)
 
