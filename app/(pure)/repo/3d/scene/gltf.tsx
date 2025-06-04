@@ -36,6 +36,26 @@ export default function InfiniteTube() {
       loader.load('/model/cow/Cow.gltf', function (gltf) {
         gltf.scene.position.x = 10
         scene.add(gltf.scene)
+
+        const helper = new THREE.BoxHelper(gltf.scene, 'pink')
+        scene.add(helper)
+
+        const box = new THREE.Box3()
+        box.expandByObject(gltf.scene)
+        const width = box.max.x - box.min.x
+        const height = box.max.y - box.min.y
+        const depth = box.max.z - box.min.z
+        console.log('Box3:', { width, height, depth })
+
+        const ringGeometry = new THREE.RingGeometry(depth / 2, depth / 2 + 0.4)
+        const ringMaterial = new THREE.MeshBasicMaterial({
+          color: 'green',
+          side: THREE.DoubleSide,
+        })
+        const ring = new THREE.Mesh(ringGeometry, ringMaterial)
+        ring.position.y = height / 2
+        ring.rotateX(Math.PI / 2)
+        gltf.scene.add(ring)
       })
     }
 
