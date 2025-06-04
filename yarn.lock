@@ -12389,6 +12389,7 @@ react@rc:
     simplex-noise: ^4.0.3
     tailwindcss: ^3.4.14
     three: ^0.175.0
+    three-spritetext: ^1.9.6
     typescript: ^5.1.3
     unist-util-visit: ^5.0.0
   languageName: unknown
@@ -12479,6 +12480,15 @@ react@rc:
   peerDependencies:
     tslib: ^2
   checksum: 283a2785e513dc892822dd0bbadaa79e873a7fc90b84798164717bf7cf837553e0b4518d8027b2307d8f6fc6caab088fa717112cd9196c6222763cc3cc1b7e79
+  languageName: node
+  linkType: hard
+
+"three-spritetext@npm:^1.9.6":
+  version: 1.9.6
+  resolution: "three-spritetext@npm:1.9.6"
+  peerDependencies:
+    three: ">=0.86.0"
+  checksum: 96f99389c3f69ad0963dc332a0753395cf340af1dac165e26a3356e9087dd6db6f94bd506870086a222b02b554cfaed9b0d41e8488f154f78525838ed115f15a
   languageName: node
   linkType: hard
 
