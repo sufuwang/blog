@@ -6,12 +6,62 @@ import { useEffect } from 'react'
 import { SimplexNoise } from 'three/examples/jsm/Addons.js'
 import { Tween, Easing, Group } from '@tweenjs/tween.js'
 import { throttle } from 'lodash-es'
+// @ts-ignore
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 
 export default function Fireworm() {
   useEffect(() => {
     const simplex = new SimplexNoise()
     const scene = new THREE.Scene()
 
+    {
+      const listener = new THREE.AudioListener()
+      const audio = new THREE.Audio(listener)
+      const audioLoader = new THREE.AudioLoader()
+      audioLoader.load('/audio/superman.mp3', (buffer) => {
+        audio.setBuffer(buffer)
+      })
+
+      const gui = new GUI()
+      const obj = {
+        volume: 1,
+        loop: true,
+        playbackRate: 1,
+        offset: 0,
+        detune: 0,
+        play() {
+          audio.play()
+        },
+        pause() {
+          audio.pause()
+        },
+      }
+      gui.add(obj, 'volume', 0, 1).onChange((value) => {
+        audio.setVolume(value)
+      })
+      gui.add(obj, 'playbackRate', [0.5, 1, 2]).onChange((value) => {
+        audio.playbackRate = value
+        audio.pause()
+        audio.play()
+      })
+      gui.add(obj, 'loop').onChange((value) => {
+        audio.setLoop(value)
+        audio.pause()
+        audio.play()
+      })
+      gui.add(obj, 'offset', 0, 150).onChange((value) => {
+        audio.offset = value
+        audio.pause()
+        audio.play()
+      })
+      gui.add(obj, 'detune', 0, 1000).onChange((value) => {
+        audio.detune = value
+        audio.pause()
+        audio.play()
+      })
+      gui.add(obj, 'play')
+      gui.add(obj, 'pause')
+    }
     {
       for (let i = 0; i < 600; i++) {
         const material = new THREE.SpriteMaterial({
