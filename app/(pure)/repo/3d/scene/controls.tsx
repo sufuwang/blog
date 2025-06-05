@@ -1,14 +1,11 @@
 import * as THREE from 'three'
 // @ts-ignore
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
-import {
-  DragControls,
-  FirstPersonControls,
-  FlyControls,
-  MapControls,
-  TransformControls,
-} from 'three/examples/jsm/Addons'
+import { DragControls, TransformControls } from 'three/examples/jsm/Addons'
+
+interface Event {
+  object: THREE.Mesh<THREE.BoxGeometry, THREE.MeshPhongMaterial, THREE.Object3DEventMap>
+}
 
 export default function Curve() {
   useEffect(() => {
@@ -98,17 +95,17 @@ export default function Curve() {
         renderer.domElement
       )
       dragControls.addEventListener('dragstart', function (event) {
-        event.object.material.color.set('lightgreen')
-        event.object.material.wireframe = false
+        ;(event as unknown as Event).object.material.color.set('lightgreen')
+        ;(event as unknown as Event).object.material.wireframe = false
       })
       dragControls.addEventListener('dragend', function (event) {
-        event.object.material.color.set('orange')
+        ;(event as unknown as Event).object.material.color.set('orange')
       })
       dragControls.addEventListener('hoveron', function (event) {
-        event.object.material.wireframe = true
+        ;(event as unknown as Event).object.material.wireframe = true
       })
       dragControls.addEventListener('hoveroff', function (event) {
-        event.object.material.wireframe = false
+        ;(event as unknown as Event).object.material.wireframe = false
       })
     }
     {
