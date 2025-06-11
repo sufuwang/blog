@@ -13,6 +13,8 @@ export default function RainbowBubble() {
     const scene = new THREE.Scene()
     // const loader = new GLTFLoader()
     const gui = new GUI()
+    const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(512)
+    const cubeCamera = new THREE.CubeCamera(1, 1000, cubeRenderTarget)
 
     // {
     //   const textureLoader = new THREE.CubeTextureLoader()
@@ -47,6 +49,32 @@ export default function RainbowBubble() {
       rgbeLoader.load('/material/city/san_giuseppe_bridge_2k.hdr', (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping
         scene.background = texture
+
+        {
+          const geometry = new THREE.PlaneGeometry(1000, 1000)
+          const material = new THREE.MeshStandardMaterial({
+            color: 'white',
+            metalness: 1,
+            roughness: 0,
+            // envMap: texture,
+            envMap: cubeRenderTarget.texture,
+          })
+          const mesh = new THREE.Mesh(geometry, material)
+          mesh.position.set(0, 0, -800)
+          mesh.rotateY(Math.PI)
+          mesh.name = 'plane'
+          scene.add(mesh)
+        }
+        {
+          const geometry = new THREE.SphereGeometry(100)
+          const material = new THREE.MeshStandardMaterial({
+            color: 'green',
+          })
+          const mesh = new THREE.Mesh(geometry, material)
+          mesh.position.set(0, 0, -1200)
+          mesh.name = 'sphere'
+          scene.add(mesh)
+        }
 
         const geometry = new THREE.SphereGeometry(300)
         const material = new THREE.MeshPhysicalMaterial({
@@ -84,7 +112,7 @@ export default function RainbowBubble() {
     scene.add(helper)
 
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
-    camera.position.set(500, 600, 800)
+    camera.position.set(1200, 1200, 1200)
     camera.lookAt(0, 0, 0)
 
     const axesHelper = new THREE.AxesHelper(20)
@@ -96,6 +124,12 @@ export default function RainbowBubble() {
     renderer.setSize(width, height)
 
     const render = () => {
+      const t = scene.getObjectByName('plane')
+      if (t) {
+        cubeCamera.position.copy(t.position)
+      }
+
+      cubeCamera.update(renderer, scene)
       renderer.render(scene, camera)
       requestAnimationFrame(render)
     }
