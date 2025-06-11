@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
+import { RGBELoader } from 'three/examples/jsm/Addons.js'
 
 export default function RainbowBubble() {
   useEffect(() => {
@@ -13,33 +14,60 @@ export default function RainbowBubble() {
     // const loader = new GLTFLoader()
     const gui = new GUI()
 
+    // {
+    //   const textureLoader = new THREE.CubeTextureLoader()
+    //   const texture = textureLoader
+    //     .setPath('/material/city/')
+    //     .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'])
+    //   scene.background = texture
+
+    //   const geometry = new THREE.SphereGeometry(300)
+    //   const material = new THREE.MeshPhysicalMaterial({
+    //     color: '#fff',
+    //     metalness: 0,
+    //     roughness: 0,
+    //     transmission: 1,
+    //     envMap: texture,
+    //     iridescence: 1,
+    //     iridescenceIOR: 1.8,
+    //     reflectivity: 1,
+    //   })
+
+    //   gui.addColor(material, 'color')
+    //   gui.add(material, 'iridescence', 0, 1)
+    //   gui.add(material, 'iridescenceIOR', 1, 2.33)
+    //   gui.add(material, 'reflectivity', 0, 1)
+
+    //   const mesh = new THREE.Mesh(geometry, material)
+    //   scene.add(mesh)
+    // }
+
     {
-      const textureLoader = new THREE.CubeTextureLoader()
-      const texture = textureLoader
-        .setPath('/material/city/')
-        .load(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'])
+      const rgbeLoader = new RGBELoader()
+      rgbeLoader.load('/material/city/san_giuseppe_bridge_2k.hdr', (texture) => {
+        texture.mapping = THREE.EquirectangularReflectionMapping
+        scene.background = texture
 
-      scene.background = texture
+        const geometry = new THREE.SphereGeometry(300)
+        const material = new THREE.MeshPhysicalMaterial({
+          color: '#fff',
+          metalness: 0,
+          roughness: 0,
+          transmission: 1,
+          envMap: texture,
+          iridescence: 1,
+          iridescenceIOR: 1.8,
+          reflectivity: 1,
+        })
 
-      const geometry = new THREE.SphereGeometry(300)
-      const material = new THREE.MeshPhysicalMaterial({
-        color: '#fff',
-        metalness: 0,
-        roughness: 0,
-        transmission: 1,
-        envMap: texture,
-        iridescence: 1,
-        iridescenceIOR: 1.8,
-        reflectivity: 1,
+        gui.addColor(material, 'color')
+        gui.add(material, 'iridescence', 0, 1)
+        gui.add(material, 'iridescenceIOR', 1, 2.33)
+        gui.add(material, 'reflectivity', 0, 1)
+
+        const mesh = new THREE.Mesh(geometry, material)
+        scene.add(mesh)
       })
-
-      gui.addColor(material, 'color')
-      gui.add(material, 'iridescence', 0, 1)
-      gui.add(material, 'iridescenceIOR', 1, 2.33)
-      gui.add(material, 'reflectivity', 0, 1)
-
-      const mesh = new THREE.Mesh(geometry, material)
-      scene.add(mesh)
     }
 
     const directionLight = new THREE.DirectionalLight(0xffffff, 2)
