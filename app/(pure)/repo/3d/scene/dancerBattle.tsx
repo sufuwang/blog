@@ -14,6 +14,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js'
 // @ts-ignore
 import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js'
+import { Reflector } from 'three/examples/jsm/Addons'
 
 const Michelle = [
   {
@@ -84,6 +85,12 @@ export default function BarChart() {
         })
         gltf.scene.name = 'stage'
         scene.add(gltf.scene)
+
+        const geometry = new THREE.PlaneGeometry(6000, 1600)
+        const mesh = new Reflector(geometry)
+        mesh.position.set(-700, 700, -700)
+        mesh.rotateY(Math.PI / 4)
+        scene.add(mesh)
       })
       Michelle.forEach((michelle) => loadMichelle(michelle))
     }
@@ -123,7 +130,7 @@ export default function BarChart() {
       }
 
       if (close) {
-        lightTween[0].start()
+        lightTween[0]?.start()
         return
       }
 
