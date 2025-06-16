@@ -5,6 +5,25 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
+import { DecalGeometry } from 'three/examples/jsm/Addons'
+
+const loader = new THREE.TextureLoader()
+const texture = loader.load('/material/xiaoxin.png')
+texture.colorSpace = THREE.SRGBColorSpace
+
+const createDecal = (mesh, position) => {
+  const orientation = new THREE.Euler()
+  const size = new THREE.Vector3(50, 50, 50)
+
+  const geometry = new DecalGeometry(mesh, position, orientation, size)
+  const material = new THREE.MeshPhongMaterial({
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    map: texture,
+    transparent: true,
+  })
+  return new THREE.Mesh(geometry, material)
+}
 
 export default function RepoPage() {
   const scene = new THREE.Scene()
@@ -18,6 +37,8 @@ export default function RepoPage() {
     const mesh = new THREE.Mesh(geometry, material)
     mesh.position.set(0, 0, 0)
     scene.add(mesh)
+
+    scene.add(createDecal(mesh, new THREE.Vector3(0, 0, 50)))
 
     const pointLight = new THREE.PointLight(0xffffff, 40000)
     pointLight.position.set(120, 120, 120)
@@ -38,6 +59,18 @@ export default function RepoPage() {
     camera.position.set(200, 200, 200)
     camera.lookAt(0, 0, 0)
     renderer.setSize(width, height)
+
+    renderer.domElement.addEventListener('click', (event) => {
+      const x = (event.offsetX / width) * 2 - 1
+      const y = -((event.offsetY / height) * 2 - 1)
+      const r = new THREE.Raycaster()
+      r.setFromCamera(new THREE.Vector2(x, y), camera)
+      const is = r.intersectObjects(scene.children)
+      if (is.length) {
+        const p = is[0].point
+        scene.add(createDecal(mesh, p))
+      }
+    })
 
     document.body.appendChild(renderer.domElement)
     new OrbitControls(camera, renderer.domElement)
