@@ -4,6 +4,7 @@ import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
 import { DecalGeometry, DRACOLoader, GLTFLoader } from 'three/examples/jsm/Addons'
+import { ColorPicker } from 'antd'
 
 export default function PrintFlower() {
   const loader = new THREE.TextureLoader()
@@ -15,10 +16,17 @@ export default function PrintFlower() {
   const scene = new THREE.Scene()
   const renderer = new THREE.WebGLRenderer()
 
+  const onColorChange = (_, color) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const tshirt = scene.getObjectByName('tshirt') as unknown as any
+    tshirt?.children[0].material.color.set(color)
+  }
+
   useEffect(() => {
     {
       gltfLoader.load('/model/tshirt/tshirt.glb', (gltf) => {
         gltf.scene.scale.setScalar(400)
+        gltf.scene.name = 'tshirt'
         scene.add(gltf.scene)
       })
     }
@@ -71,4 +79,10 @@ export default function PrintFlower() {
     }
     requestAnimationFrame(r)
   }, [])
+
+  return (
+    <div className="absolute left-2 top-2">
+      <ColorPicker defaultValue="#1677ff" disabledAlpha onChange={onColorChange} />
+    </div>
+  )
 }
