@@ -17,21 +17,9 @@ import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js'
 import { Reflector } from 'three/examples/jsm/Addons'
 
 const Michelle = [
-  {
-    name: 'michelle_1',
-    position: { x: -200, z: -200 },
-    color: 'yellow',
-  },
-  {
-    name: 'michelle_2',
-    position: { x: 0, z: 400 },
-    color: 'red',
-  },
-  {
-    name: 'michelle_3',
-    position: { x: 400, z: 0 },
-    color: 'lightgreen',
-  },
+  { name: 'michelle_1', position: { x: -200, z: -200 }, color: 'yellow' },
+  { name: 'michelle_2', position: { x: 0, z: 400 }, color: 'red' },
+  { name: 'michelle_3', position: { x: 400, z: 0 }, color: 'lightgreen' },
 ] as const
 
 type LoadMichelle = (argus: (typeof Michelle)[number]) => void
@@ -69,10 +57,7 @@ export default function BarChart() {
       const mixer = new THREE.AnimationMixer(gltf.scene)
       const action = mixer.clipAction(gltf.animations[0])
       // clipAction.play()
-      mixers[name] = {
-        mixer,
-        action,
-      }
+      mixers[name] = { mixer, action }
     })
   }
 
@@ -179,9 +164,7 @@ export default function BarChart() {
     camera.lookAt(0, 0, 0)
 
     const group = new Group()
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-    })
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(width, height)
     renderer.shadowMap.enabled = true
 
@@ -226,6 +209,7 @@ export default function BarChart() {
           position: { x, z },
         } = Michelle.find((m) => m.name === tt.name)!
         setSpotLight({ x, z, showHelper: false })
+        console.info('tt: ', tt)
         outlinePass.selectedObjects = tt ? [tt] : []
         mixers[tt.name].action.play()
       } else {
