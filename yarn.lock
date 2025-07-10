@@ -5191,6 +5191,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cannon-es@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "cannon-es@npm:0.20.0"
+  checksum: a11c2a51d8f4bf314fdbe671dd03e025513e3ab98621d3260c06f2c2a11922c67bc670f98e866a21919d966ba9b19aade5b7c3f9cf507a2ed7499c85eb8934bb
+  languageName: node
+  linkType: hard
+
 "ccount@npm:^2.0.0":
   version: 2.0.1
   resolution: "ccount@npm:2.0.1"
@@ -12973,6 +12980,7 @@ __metadata:
     antd: ^5.22.5
     autoprefixer: ^10.4.13
     body-scroll-lock: ^4.0.0-beta.0
+    cannon-es: ^0.20.0
     contentlayer2: 0.5.3
     cross-env: ^7.0.3
     dayjs: ^1.11.13
