@@ -11013,6 +11013,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"quarks.core@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "quarks.core@npm:0.16.0"
+  checksum: 29426ca9694f9050ea56615be339e2614bf7aae1d7ce953e58b8d217b92062ac847caa3d717d02aac67e4e433886825013e6b054b8d6fb207c6485ebf3ba6003
+  languageName: node
+  linkType: hard
+
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -13386,6 +13393,7 @@ __metadata:
     tailwindcss: ^3.4.14
     three: ^0.175.0
     three-spritetext: ^1.9.6
+    three.quarks: ^0.16.0
     typescript: ^5.1.3
     unist-util-visit: ^5.0.0
     zustand: ^5.0.6
@@ -13497,6 +13505,17 @@ __metadata:
   peerDependencies:
     three: ">=0.128.0"
   checksum: 750c4926e3dd7334a0542525334012c52b75cc2b21016995e67cef576ff4b95d05370131426ed70aef95df881e77b9870338ac9dd40333769c4b3a76d27d656a
+  languageName: node
+  linkType: hard
+
+"three.quarks@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "three.quarks@npm:0.16.0"
+  dependencies:
+    quarks.core: ^0.16.0
+  peerDependencies:
+    three: ">=0.165.0"
+  checksum: 1d4f5b494cecdbec7b1ebbf4dfdf8bac2e3343c276f44c010f308a9bc71b0e769efc3353b0b9479646a22368675036ff8a09e82c1e785f562361d284bfef2998
   languageName: node
   linkType: hard
 
