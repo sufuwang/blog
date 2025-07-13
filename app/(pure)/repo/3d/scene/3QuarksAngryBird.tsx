@@ -10,6 +10,9 @@ import {
   ConeEmitter,
   RandomColor,
   Vector4,
+  SpeedOverLife,
+  PiecewiseBezier,
+  Bezier,
 } from 'three.quarks'
 import { EffectComposer, GLTFLoader, RenderPass } from 'three/examples/jsm/Addons'
 // @ts-ignore
@@ -54,6 +57,11 @@ export default function ThreeQuarksAngryBird() {
           side: THREE.DoubleSide,
         }),
       })
+
+      particleSystem.addBehavior(
+        new SpeedOverLife(new PiecewiseBezier([[new Bezier(2, 1, 0.6, 0.1), 0]]))
+      )
+
       batchRenderer.addSystem(particleSystem)
       scene.add(particleSystem.emitter, batchRenderer)
     }
