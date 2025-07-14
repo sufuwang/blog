@@ -3,12 +3,17 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
 import {
+  AxisAngleGenerator,
   BatchedParticleRenderer,
   ConstantValue,
   IntervalValue,
+  Noise,
   ParticleSystem,
   PointEmitter,
   RandomColor,
+  RenderMode,
+  Rotation3DOverLife,
+  Vector3,
   Vector4,
 } from 'three.quarks'
 
@@ -28,6 +33,7 @@ export default function ThreeQuarksRedHeart() {
         startSpeed: new IntervalValue(0, 200),
         startSize: new IntervalValue(0, 40),
         startColor: new RandomColor(new Vector4(1, 0, 0, 1), new Vector4(0.1, 0, 0, 1)),
+        // startRotation: new IntervalValue(0, Math.PI / 2),
         emissionOverTime: new ConstantValue(100),
         shape: new PointEmitter(),
         material: new THREE.MeshBasicMaterial({
@@ -35,7 +41,17 @@ export default function ThreeQuarksRedHeart() {
           transparent: true,
           side: THREE.DoubleSide,
         }),
+        // renderMode: RenderMode.Mesh,
       })
+
+      // particleSystem.addBehavior(
+      //   new Rotation3DOverLife(
+      //     new AxisAngleGenerator(new Vector3(0, 1, 1), new IntervalValue(Math.PI * 2, Math.PI))
+      //   )
+      // )
+
+      particleSystem.addBehavior(new Noise(new ConstantValue(0.2), new IntervalValue(50, 200)))
+
       batchRenderer.addSystem(particleSystem)
       scene.add(particleSystem.emitter, batchRenderer)
     }
