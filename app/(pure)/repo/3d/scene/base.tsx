@@ -25,7 +25,7 @@ const createDecal = (mesh, position) => {
   return new THREE.Mesh(geometry, material)
 }
 
-export default function RepoPage() {
+export default function Base() {
   const scene = new THREE.Scene()
   const renderer = new THREE.WebGLRenderer()
 

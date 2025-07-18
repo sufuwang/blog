@@ -11,8 +11,6 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 // @ts-ignore
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 // @ts-ignore
-import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js'
-// @ts-ignore
 import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js'
 import { Reflector } from 'three/examples/jsm/Addons'
 
@@ -37,7 +35,7 @@ const Michelle = [
 type LoadMichelle = (argus: (typeof Michelle)[number]) => void
 type Object3D<T = THREE.Object3D<THREE.Object3DEventMap>> = T & { target: T }
 
-export default function BarChart() {
+export default function DancerBattle() {
   const mixers: {
     [Key in (typeof Michelle)[number]['name']]?: {
       mixer: THREE.AnimationMixer
@@ -178,7 +176,6 @@ export default function BarChart() {
     camera.position.set(800, 800, 800)
     camera.lookAt(0, 0, 0)
 
-    const group = new Group()
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
     })
@@ -240,7 +237,6 @@ export default function BarChart() {
       Object.values(mixers).forEach(({ mixer }) => mixer.update(delta))
 
       tweenGroup.update()
-      group.update()
       composer.render()
       // renderer.render(scene, camera)
       requestAnimationFrame(render)

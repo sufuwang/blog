@@ -1,23 +1,16 @@
 import * as THREE from 'three'
 // @ts-ignore
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
 import {
-  AxisAngleGenerator,
   BatchedParticleRenderer,
   Bezier,
   ConstantValue,
   FrameOverLife,
   GridEmitter,
   IntervalValue,
-  Noise,
   ParticleSystem,
   PiecewiseBezier,
-  PointEmitter,
   RandomColor,
-  RenderMode,
-  Rotation3DOverLife,
-  Vector3,
   Vector4,
 } from 'three.quarks'
 import { GLTFLoader } from 'three/examples/jsm/Addons'

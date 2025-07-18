@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 
-export default function Material() {
+export default function Shadow() {
   const scene = new THREE.Scene()
   const renderer = new THREE.WebGLRenderer()
   const gui = new GUI()

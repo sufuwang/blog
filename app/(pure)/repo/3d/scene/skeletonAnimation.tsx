@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 // @ts-ignore
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-export default function InfiniteTube() {
+export default function SkeletonAnimation() {
   useEffect(() => {
     const scene = new THREE.Scene()
     const mixers: THREE.AnimationMixer[] = []

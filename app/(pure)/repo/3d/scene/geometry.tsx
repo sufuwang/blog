@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'

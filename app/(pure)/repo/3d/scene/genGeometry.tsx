@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
 
-export default function Curve() {
+export default function GenGeometry() {
   useEffect(() => {
     const scene = new THREE.Scene()
     {
@@ -76,7 +76,6 @@ export default function Curve() {
 
       // const geometry = new THREE.ShapeGeometry(shape)
       const geometry = new THREE.ExtrudeGeometry(shape, { depth: 4 })
-
       const material = new THREE.MeshLambertMaterial({
         color: new THREE.Color('lightgreen'),
         side: THREE.DoubleSide,

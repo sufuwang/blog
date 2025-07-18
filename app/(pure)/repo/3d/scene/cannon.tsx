@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import * as CANNON from 'cannon-es'
 
-export default function CarSkin() {
+export default function Cannon() {
   useEffect(() => {
     const scene = new THREE.Scene()
 

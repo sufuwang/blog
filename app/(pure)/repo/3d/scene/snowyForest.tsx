@@ -7,7 +7,7 @@ import { createNoise2D } from 'simplex-noise'
 // @ts-ignore
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-export default function RepoPage() {
+export default function SnowyForest() {
   useEffect(() => {
     const scene = new THREE.Scene()
     const snow = new THREE.Group()

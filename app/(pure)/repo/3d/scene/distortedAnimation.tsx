@@ -3,11 +3,9 @@ import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 // @ts-ignore
-import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
-// @ts-ignore
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-export default function InfiniteTube() {
+export default function DistortedAnimation() {
   useEffect(() => {
     const scene = new THREE.Scene()
     const mixers: THREE.AnimationMixer[] = []

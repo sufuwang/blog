@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
 
-export default function Curve() {
+export default function VectorDotProduct() {
   useEffect(() => {
     const scene = new THREE.Scene()
     const group = new THREE.Group()

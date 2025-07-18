@@ -3,7 +3,6 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
 import {
-  AxisAngleGenerator,
   BatchedParticleRenderer,
   ConstantValue,
   IntervalValue,
@@ -11,9 +10,6 @@ import {
   ParticleSystem,
   PointEmitter,
   RandomColor,
-  RenderMode,
-  Rotation3DOverLife,
-  Vector3,
   Vector4,
 } from 'three.quarks'
 

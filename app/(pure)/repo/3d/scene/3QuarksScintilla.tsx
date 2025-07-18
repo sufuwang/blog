@@ -18,7 +18,7 @@ import {
   PiecewiseBezier,
   Bezier,
 } from 'three.quarks'
-import { EffectComposer, GLTFLoader, RenderPass } from 'three/examples/jsm/Addons'
+import { EffectComposer, RenderPass } from 'three/examples/jsm/Addons'
 // @ts-ignore
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 

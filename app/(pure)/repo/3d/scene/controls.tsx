@@ -7,7 +7,7 @@ interface Event {
   object: THREE.Mesh<THREE.BoxGeometry, THREE.MeshPhongMaterial, THREE.Object3DEventMap>
 }
 
-export default function Curve() {
+export default function Controls() {
   useEffect(() => {
     const scene = new THREE.Scene()
 

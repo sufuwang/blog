@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { useEffect } from 'react'
 import { Tween, Easing } from '@tweenjs/tween.js'
 
-export default function InfiniteTube() {
+export default function EntranceAnimation() {
   useEffect(() => {
     const scene = new THREE.Scene()
 

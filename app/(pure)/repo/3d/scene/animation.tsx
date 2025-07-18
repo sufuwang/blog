@@ -4,9 +4,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 // @ts-ignore
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { useEffect } from 'react'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
-export default function InfiniteTube() {
+export default function Animation() {
   useEffect(() => {
     const scene = new THREE.Scene()
     const mixers: THREE.AnimationMixer[] = []

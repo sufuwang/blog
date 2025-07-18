@@ -41,7 +41,7 @@ const generateBox = (colorStr, x, y, z) => {
   return box
 }
 
-export default function InfiniteTube() {
+export default function Raycaster() {
   useEffect(() => {
     const scene = new THREE.Scene()
 

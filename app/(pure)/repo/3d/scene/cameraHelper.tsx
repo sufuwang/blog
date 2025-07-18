@@ -34,7 +34,7 @@ const createCanvas = (text, img: HTMLImageElement | null = null, width = 80, hei
   return canvas
 }
 
-export default function RepoPage() {
+export default function CameraHelper() {
   const scene = new THREE.Scene()
   const renderer = new THREE.WebGLRenderer()
 

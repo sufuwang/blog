@@ -3,7 +3,7 @@ import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
-export default function House() {
+export default function Histogram() {
   const createLine = (type) => {
     const points = [
       new THREE.Vector3(0, 0, 0),

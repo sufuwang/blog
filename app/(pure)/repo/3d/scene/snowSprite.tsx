@@ -4,7 +4,7 @@ import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
 
-export default function RepoPage() {
+export default function SnowSprite() {
   useEffect(() => {
     const scene = new THREE.Scene()
 

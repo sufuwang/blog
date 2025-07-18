@@ -3,8 +3,6 @@ import * as THREE from 'three'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 // @ts-ignore
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-// @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 import { Reflector, RGBELoader } from 'three/examples/jsm/Addons.js'
 

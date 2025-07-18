@@ -47,7 +47,7 @@ const createPlane = (x, y) => {
   return mesh
 }
 
-export default function Curve() {
+export default function CanvasTexture() {
   useEffect(() => {
     const scene = new THREE.Scene()
     {

@@ -8,7 +8,7 @@ import lodash from 'lodash-es'
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 
-export default function Fireworm() {
+export default function Spectrum() {
   useEffect(() => {
     const scene = new THREE.Scene()
 
