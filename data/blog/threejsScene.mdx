@@ -12,7 +12,7 @@ summary: ''
 
 &nbsp;
 # 1. 光源
-| 光源类型 | 构造函数 | <div style={{ whiteSpace: 'nowrap' }}>方向</div> | <div style={{ whiteSpace: 'nowrap' }}>范围衰减</div> | <div style={{ whiteSpace: 'nowrap' }}>投影阴影</div> | 常用用途 |
+| 光源类型 | 构造函数 | <div style={{ whiteSpace: 'nowrap' }}>方向</div> | <div style={{ whiteSpace: 'nowrap' }}>范围衰减</div> | <div style={{ whiteSpace: 'nowrap' }}>投影阴影</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '240px' }}>常用用途</div> |
 | ------- | ------ | ---- | ------ | ------- | ------ |
 | 环境光 | `THREE.AmbientLight` | ❌ | ❌ | ❌ | 没有方向性，所有物体受到均匀照亮。通常用于打底照明，防止阴影完全黑 |
 | 方向光 | `THREE.DirectionalLight` | ✅ | ❌ | ✅ | 模拟太阳光，从一个方向照射整个场景 |
@@ -23,7 +23,7 @@ summary: ''
 &nbsp;
 
 # 2. 摄像机
-| 类名 | 名称 | 是否透视 | 用途 |
+| 类名 | <div style={{ minWidth: '100px' }}>名称</div> | <div style={{ whiteSpace: 'nowrap' }}>是否透视</div> | <div style={{ minWidth: '100px' }}>用途</div> |
 | -------------------- | -------- | ---- | -------- |
 | `PerspectiveCamera` | 透视摄像机 | ✅ | 真实 3D 场景 |
 | `OrthographicCamera` | 正交摄像机 | ❌ | 2D、工程图 |
@@ -33,17 +33,17 @@ summary: ''
 &nbsp;
 
 # 3. 渲染器
-| 渲染器 | 特点 | 使用场景 |
+| 渲染器 | <div style={{ minWidth: '160px' }}>特点</div> | <div style={{ minWidth: '100px' }}>使用场景</div> |
 | ------------- | ----------------------- | ------------ |
 | `WebGLRenderer` | GPU 加速渲染，支持光照/阴影/后处理 | 通用、高性能三维场景 |
 | `SVGRenderer` | 矢量图，适合打印和技术图纸 | 静态展示、输出为 SVG |
 | `CSS2DRenderer` | HTML 元素叠加在屏幕上，不受透视变形影响 | 标签、信息面板 |
 | `CSS3DRenderer` | HTML 元素 + 3D 空间，DOM 可交互 | 3D UI、地图弹窗等 |
-| `WebGPURenderer` | 下一代 WebGPU 技术（实验） | 高端设备/性能极限应用 |
+| `WebGPURenderer` | 下一代 WebGPU 技术 | 高端设备/性能极限应用 |
 &nbsp;
 
 # 4. 控制器
-| 控制器名称 | 功能描述 | 鼠标操作 | <div style={{ whiteSpace: 'nowrap' }}>动画轨迹</div> | 常见用途 |
+| 控制器名称 | <div style={{ whiteSpace: 'nowrap', minWidth: '160px' }}>功能描述</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '160px' }}>鼠标操作</div> | <div style={{ whiteSpace: 'nowrap' }}>动画轨迹</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '160px' }}>常见用途</div> |
 | ----------------------------- | ----------------------------- | ------------------------------ | -------- | --------------------- |
 | `OrbitControls` | 环绕中心点旋转（查看模型/场景） | 左旋转 / 中平移 / 滚缩放 | ❌ | 最常用，用于查看模型或场景 |
 | `TrackballControls` | 类似 3D 软件的自由旋转，轨迹球控制 | 任意角度旋转 | ❌ | 更自由的交互体验，适用于设计类工具 |
@@ -58,7 +58,7 @@ summary: ''
 &nbsp;
 
 ## 4.1 常用控制器对比
-| 控制器 | 支持平移 | 支持旋转 | 支持缩放 | 支持拖拽物体 | 常用组合 |
+| 控制器 | <div style={{ whiteSpace: 'nowrap', minWidth: '100px' }}>支持平移</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '100px' }}>支持旋转</div> | <div style={{ whiteSpace: 'nowrap' }}>支持缩放</div> | <div style={{ whiteSpace: 'nowrap' }}>支持拖拽物体</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '180px' }}>常用组合</div> |
 | --------------------- | ------- | ------- | ---- | ------ | --------------------- |
 | `OrbitControls` | ✅ | ✅（围绕目标） | ✅ | ❌ | 默认相机控制 |
 | `TransformControls` | ❌ | ✅（操作物体） | ✅ | ✅ | 配合 Orbit 使用 |
@@ -69,7 +69,7 @@ summary: ''
 &nbsp;
 
 # 5. 资源加载
-| 加载器 | 加载类型 | 类名 | 文件格式 | 是否异步 |
+| <div style={{ whiteSpace: 'nowrap', minWidth: '120px' }}>加载器</div> | <div style={{ whiteSpace: 'nowrap' }}>加载类型</div> | 类名 | <div style={{ whiteSpace: 'nowrap', minWidth: '180px' }}>文件格式</div> | <div style={{ whiteSpace: 'nowrap' }}>是否异步</div> |
 | ---------- | -------- | ------------------------- | ------------------------- | --------------------------- |
 | 贴图加载器 | 图片纹理 | `THREE.TextureLoader` | `.jpg`, `.png`, `.webp` 等 | ✅ |
 | 立方体贴图加载器 | 环境贴图 | `THREE.CubeTextureLoader` | 六面图 | ✅ |
