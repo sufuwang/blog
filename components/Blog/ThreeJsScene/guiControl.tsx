@@ -80,5 +80,5 @@ export default function GuiControl() {
     }
   }, [])
 
-  return <div ref={ref} className="relative" />
+  return <div ref={ref} className="relative overflow-hidden rounded-md" />
 }

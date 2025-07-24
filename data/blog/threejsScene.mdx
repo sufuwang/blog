@@ -129,8 +129,42 @@ gui.domElement.style.position = 'absolute'
 div.appendChild(gui.domElement)
 ```
 
-<GuiControl />
+<ThreeJsSceneGuiControl />
 &nbsp;
 
 
 # 8. 小结（场景搭建）
+```tsx
+const c = ref.current!
+
+const scene = new THREE.Scene()
+
+const renderer = new THREE.WebGLRenderer({ antialias: true })
+const x = window.innerWidth / window.innerHeight
+const width = c.clientWidth
+const height = width / x
+renderer.setSize(width, height)
+
+const axesHelper = new THREE.AxesHelper(20)
+scene.add(axesHelper)
+
+// 灯光不影响 AxesHelper 展示
+const light = new THREE.PointLight(0xffffff, 100000)
+light.position.set(200, 200, 200)
+scene.add(light)
+
+const camera = new THREE.PerspectiveCamera()
+camera.position.set(200, 0, 0)
+camera.lookAt(0, 0, 0)
+
+new OrbitControls(camera, renderer.domElement)
+
+c.appendChild(renderer.domElement)
+
+const render = () => {
+  renderer.render(scene, camera)
+  requestAnimationFrame(render)
+}
+render()
+```
+<ThreeJsSceneSummary />
