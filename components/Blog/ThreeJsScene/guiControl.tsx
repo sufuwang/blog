@@ -1,13 +1,13 @@
 'use client'
-import useThreeJsScene from '@/hooks/useThreeJsScene'
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 // @ts-ignore
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
+// @ts-ignore
+import { OrbitControls } from 'three/addons/controls/OrbitControls'
 
 export default function GuiControl() {
   const ref = useRef<HTMLDivElement>(null)
-  const { scene, renderer } = useThreeJsScene({ cameraPosition: [200, 0, 0] })
 
   const createBox = (size = 80) => {
     const geometry = new THREE.BoxGeometry(size, size, size)
@@ -21,6 +21,11 @@ export default function GuiControl() {
   useEffect(() => {
     const c = ref.current
     if (c) {
+      const scene = new THREE.Scene()
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+      })
+
       const x = window.innerWidth / window.innerHeight
       const width = c.clientWidth
       const height = width / x
@@ -53,6 +58,25 @@ export default function GuiControl() {
 
       gui.domElement.style.position = 'absolute'
       c.appendChild(gui.domElement)
+
+      const pointLight = new THREE.PointLight(0xffffff, 40000)
+      pointLight.position.set(120, 120, 120)
+      scene.add(pointLight)
+
+      const axesHelper = new THREE.AxesHelper(80)
+      scene.add(axesHelper)
+
+      const camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000)
+      camera.position.set(200, 0, 0)
+      camera.lookAt(0, 0, 0)
+
+      new OrbitControls(camera, renderer.domElement)
+  
+      function r() {
+        renderer.render(scene, camera)
+        requestAnimationFrame(r)
+      }
+      requestAnimationFrame(r)
     }
   }, [])
 
