@@ -71,7 +71,7 @@ export default function GuiControl() {
       camera.lookAt(0, 0, 0)
 
       new OrbitControls(camera, renderer.domElement)
-  
+
       function r() {
         renderer.render(scene, camera)
         requestAnimationFrame(r)
