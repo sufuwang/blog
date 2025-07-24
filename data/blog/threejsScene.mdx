@@ -1,0 +1,136 @@
+---
+title: 'THREE.js 技能: 搭建场景'
+date: '2025-07-21'
+lastmod: '2025-07-21'
+tags: ['2025', 'Tech', 'THREE.js']
+sticky: false
+draft: false
+summary: ''
+---
+
+<TOCInline toc={props.toc} exclude="Introduction" />
+
+&nbsp;
+# 1. 光源
+| 光源类型 | 构造函数 | <div style={{ whiteSpace: 'nowrap' }}>方向</div> | <div style={{ whiteSpace: 'nowrap' }}>范围衰减</div> | <div style={{ whiteSpace: 'nowrap' }}>投影阴影</div> | 常用用途 |
+| ------- | ------ | ---- | ------ | ------- | ------ |
+| 环境光 | `THREE.AmbientLight` | ❌ | ❌ | ❌ | 没有方向性，所有物体受到均匀照亮。通常用于打底照明，防止阴影完全黑 |
+| 方向光 | `THREE.DirectionalLight` | ✅ | ❌ | ✅ | 模拟太阳光，从一个方向照射整个场景 |
+| 点光源 | `THREE.PointLight` | ❌ | ✅ | ✅ | 从一点向四周发射光线，类似灯泡 |
+| 聚光灯 | `THREE.SpotLight` | ✅ | ✅ | ✅ | 有方向、有范围、有角度，适合舞台灯、聚焦灯等 |
+| 平行光 | `THREE.HemisphereLight` | ❌ | ❌ | ❌ | 顶部天空色 + 底部地面色的混合光，模拟自然环境光 |
+| <div style={{ whiteSpace: 'nowrap' }}>矩形区域光</div> | `THREE.RectAreaLight` | ✅ | ✅ | ❌ | 模拟面光源，面光源、窗户、广告牌光 |
+&nbsp;
+
+# 2. 摄像机
+| 类名 | 名称 | 是否透视 | 用途 |
+| -------------------- | -------- | ---- | -------- |
+| `PerspectiveCamera` | 透视摄像机 | ✅ | 真实 3D 场景 |
+| `OrthographicCamera` | 正交摄像机 | ❌ | 2D、工程图 |
+| `CubeCamera` | 立方体摄像机 | ✅ | 环境贴图/反射 |
+| `ArrayCamera` | 数组摄像机 | ✅ | 多视角渲染 |
+| `WebXRCamera` | WebXR摄像机 | ✅ | VR/AR 场景 |
+&nbsp;
+
+# 3. 渲染器
+| 渲染器 | 特点 | 使用场景 |
+| ------------- | ----------------------- | ------------ |
+| `WebGLRenderer` | GPU 加速渲染，支持光照/阴影/后处理 | 通用、高性能三维场景 |
+| `SVGRenderer` | 矢量图，适合打印和技术图纸 | 静态展示、输出为 SVG |
+| `CSS2DRenderer` | HTML 元素叠加在屏幕上，不受透视变形影响 | 标签、信息面板 |
+| `CSS3DRenderer` | HTML 元素 + 3D 空间，DOM 可交互 | 3D UI、地图弹窗等 |
+| `WebGPURenderer` | 下一代 WebGPU 技术（实验） | 高端设备/性能极限应用 |
+&nbsp;
+
+# 4. 控制器
+| 控制器名称 | 功能描述 | 鼠标操作 | <div style={{ whiteSpace: 'nowrap' }}>动画轨迹</div> | 常见用途 |
+| ----------------------------- | ----------------------------- | ------------------------------ | -------- | --------------------- |
+| `OrbitControls` | 环绕中心点旋转（查看模型/场景） | 左旋转 / 中平移 / 滚缩放 | ❌ | 最常用，用于查看模型或场景 |
+| `TrackballControls` | 类似 3D 软件的自由旋转，轨迹球控制 | 任意角度旋转 | ❌ | 更自由的交互体验，适用于设计类工具 |
+| `FlyControls` | 飞行模式自由移动 | 需要键盘+鼠标 | ❌ | 飞行浏览大型场景，如城市、地形 |
+| `FirstPersonControls` | 第一人称控制器（如游戏视角） | 鼠标看方向，键盘移动 | ❌ | 游戏场景、VR 预览等 |
+| `PointerLockControls` | 游戏式第一人称控制，鼠标锁定 | 鼠标锁定视角，键盘控制移动 | ❌ | FPS 游戏、沉浸式体验 |
+| `DragControls` | 拖拽物体 | 鼠标点击拖动 | ❌ | 拖拽交互、编辑器场景 |
+| `TransformControls` | 缩放/旋转/移动 Gizmo 控制器 | 鼠标控制轴向编辑 | ❌ | 编辑器工具，比如 Blender 样式操作 |
+| `MapControls` | 类似地图的操作方式 | 平移/缩放（类似 Orbit，但没有旋转） | ❌ | GIS 地图交互、2D 场景 |
+| `ArcballControls` | 鼠标中心点轨迹球旋转 | 点击选中轴旋转 | ✅ | 复杂三维交互，建模软件 |
+| `DeviceOrientationControls` | 使用移动设备陀螺仪控制视角 | 设备自动 | ✅ | AR、移动设备浏览场景 |
+&nbsp;
+
+## 4.1 常用控制器对比
+| 控制器 | 支持平移 | 支持旋转 | 支持缩放 | 支持拖拽物体 | 常用组合 |
+| --------------------- | ------- | ------- | ---- | ------ | --------------------- |
+| `OrbitControls` | ✅ | ✅（围绕目标） | ✅ | ❌ | 默认相机控制 |
+| `TransformControls` | ❌ | ✅（操作物体） | ✅ | ✅ | 配合 Orbit 使用 |
+| `DragControls` | ✅（拖动） | ❌ | ❌ | ✅ | 可与 Transform/Orbit 结合 |
+| `PointerLockControls` | ❌（移动场景） | ✅（视角） | ❌ | ❌ | 第一人称、游戏 |
+| `FirstPersonControls` | ✅ | ✅ | ❌ | ❌ | 走动式浏览体验 |
+| `FlyControls` | ✅ | ✅ | ✅ | ❌ | 飞行自由漫游场景 |
+&nbsp;
+
+# 5. 资源加载
+| 加载器 | 加载类型 | 类名 | 文件格式 | 是否异步 |
+| ---------- | -------- | ------------------------- | ------------------------- | --------------------------- |
+| 贴图加载器 | 图片纹理 | `THREE.TextureLoader` | `.jpg`, `.png`, `.webp` 等 | ✅ |
+| 立方体贴图加载器 | 环境贴图 | `THREE.CubeTextureLoader` | 六面图 | ✅ |
+| HDR 环境贴图 | HDR 贴图 | `RGBELoader` | `.hdr` | ✅ |
+| GLTF 模型加载器 | 模型/动画/贴图 | `GLTFLoader` | `.gltf`, `.glb` | ✅ |
+| FBX 模型加载器 | 模型/动画 | `FBXLoader` | `.fbx` | ✅ |
+| OBJ 模型加载器 | 模型 | `OBJLoader` | `.obj` | ✅ |
+| MTL 材质加载器 | 材质描述文件 | `MTLLoader` | `.mtl` | ✅ |
+| 字体加载器 | 字体数据 | `FontLoader` | `.json` | ✅ |
+| 音频加载器 | 音频文件 | `AudioLoader` | `.mp3`, `.ogg` 等 | ✅ |
+| 视频纹理 | 视频流 | `VideoTexture` | `.mp4`, `.webm` 等 | ❌ |
+| Draco 解码器 | 压缩 GLTF | `DRACOLoader` | `.glb`（压缩） | ✅ |
+| KTX2 加载器 | 压缩贴图 | `KTX2Loader` | `.ktx2` | ✅ |
+&nbsp;
+
+# 7. 创建 Mesh
+<a>THREE.js 技能: 创建 Mesh</a>
+<br />
+&nbsp;
+
+# 6. GUI 控制
+| 方法 | 作用 |
+| ------------------------------------------ | ----------------- |
+| `new GUI(options)` | 创建 GUI 面板实例 |
+| `gui.add(obj, prop, [min], [max], [step])` | 添加控制条（滑块、开关、输入框等） |
+| `gui.addColor(obj, prop)` | 添加颜色选择器 |
+| `gui.addFolder(name)` | 创建子面板（折叠） |
+| `gui.destroy()` | 销毁整个 GUI 面板，释放资源 |
+| `gui.hide()` / `gui.show()` | 显示或隐藏面板 |
+| `gui.title()` | 设置面板标题 |
+| `gui.close()` / `gui.open()` | 折叠/展开面板 |
+
+```jsx
+const gui = new GUI()
+gui.title('GUI 控制')
+
+const boxGui = gui.addFolder('box')
+boxGui.addColor(box.material, 'color')
+boxGui
+  .add({ size: 80 }, 'size')
+  .name('滑块')
+  .min(50)
+  .max(150)
+  .step(1)
+  .onChange((size) => {
+    scene.remove(box)
+    box = createBox(size)
+    scene.add(box)
+  })
+boxGui.close()
+
+setTimeout(() => {
+  boxGui.open()
+}, 1000)
+
+gui.domElement.style.position = 'absolute'
+div.appendChild(gui.domElement)
+```
+
+<GuiControl />
+&nbsp;
+
+
+# 8. 小结（场景搭建）

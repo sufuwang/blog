@@ -7,6 +7,7 @@ import Image from './Image'
 import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
 import CountDown from './Blog/CountDown'
+import GuiControl from './Blog/ThreeJsScene/guiControl'
 
 export const components: MDXComponents = {
   Image,
@@ -21,4 +22,5 @@ export const components: MDXComponents = {
   Table,
   Tag,
   CountDown,
+  GuiControl,
 }
