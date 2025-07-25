@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/Addons'
+import { getSizeByScreenRatio } from '@/tools/utils'
 
 export default function Summary() {
   const ref = useRef<HTMLDivElement>(null)
@@ -14,9 +15,8 @@ export default function Summary() {
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
     })
-    const x = window.innerWidth / window.innerHeight
-    const width = c.clientWidth
-    const height = width / x
+
+    const { width, height } = getSizeByScreenRatio(c.clientWidth)
     renderer.setSize(width, height)
 
     const axesHelper = new THREE.AxesHelper(20)

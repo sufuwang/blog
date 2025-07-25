@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls'
+import { getSizeByScreenRatio } from '@/tools/utils'
 
 export default function GuiControl() {
   const ref = useRef<HTMLDivElement>(null)
@@ -26,9 +27,7 @@ export default function GuiControl() {
         antialias: true,
       })
 
-      const x = window.innerWidth / window.innerHeight
-      const width = c.clientWidth
-      const height = width / x
+      const { width, height } = getSizeByScreenRatio(c.clientWidth)
       c.appendChild(renderer.domElement)
       renderer.setSize(width, height)
 
