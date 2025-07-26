@@ -26,7 +26,7 @@ export default function Summary() {
     light.position.set(200, 200, 200)
     scene.add(light)
 
-    const camera = new THREE.PerspectiveCamera()
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
     camera.position.set(200, 0, 0)
     camera.lookAt(0, 0, 0)
 

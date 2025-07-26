@@ -54,7 +54,7 @@ const AmbientLight = () => {
     const axesHelper = new THREE.AxesHelper(60)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera()
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
     camera.position.set(200, 200, 200)
     camera.lookAt(0, 0, 0)
 
@@ -96,7 +96,7 @@ const DirectionalLight = () => {
     const axesHelper = new THREE.AxesHelper(60)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera()
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
     camera.position.set(300, 0, 0)
     camera.lookAt(0, 0, 0)
 
@@ -140,7 +140,7 @@ const PointLight = () => {
     const axesHelper = new THREE.AxesHelper(60)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera()
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
     camera.position.set(300, 0, 0)
     camera.lookAt(0, 0, 0)
 
@@ -184,8 +184,8 @@ const SpotLight = () => {
     const axesHelper = new THREE.AxesHelper(60)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera()
-    camera.position.set(600, 0, 0)
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
+    camera.position.set(200, 0, 0)
     camera.lookAt(0, 0, 0)
 
     const light = new THREE.SpotLight(0xffffff, 100000)
@@ -228,8 +228,8 @@ const HemisphereLight = () => {
     const axesHelper = new THREE.AxesHelper(60)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera()
-    camera.position.set(600, 0, 0)
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
+    camera.position.set(200, 0, 0)
     camera.lookAt(0, 0, 0)
 
     const light = new THREE.HemisphereLight(0xffffff, 10)
@@ -272,8 +272,8 @@ const RectAreaLight = () => {
     const axesHelper = new THREE.AxesHelper(60)
     scene.add(axesHelper)
 
-    const camera = new THREE.PerspectiveCamera()
-    camera.position.set(200, 200, 200)
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 10000)
+    camera.position.set(100, 100, 100)
     camera.lookAt(0, 0, 0)
 
     const light = new THREE.RectAreaLight(0xffffff, 10)
