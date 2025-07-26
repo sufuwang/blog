@@ -124,7 +124,7 @@ const sphere = new THREE.Mesh(sphereGeo, reflectiveMaterial)
 scene.add(sphere)
 
 // 动画循环
-function animate() {
+function r() {
   cubeCamera.position.copy(sphere.position)
   cubeCamera.update(renderer, scene)
 
@@ -132,7 +132,7 @@ function animate() {
   requestAnimationFrame(animate)
 }
 
-animate()
+r()
 ```
 <ThreeJsSceneCamera />
 &nbsp;
@@ -145,6 +145,34 @@ animate()
 | `CSS2DRenderer` | HTML 元素叠加在屏幕上，不受透视变形影响 | 标签、信息面板 |
 | `CSS3DRenderer` | HTML 元素 + 3D 空间，DOM 可交互 | 3D UI、地图弹窗等 |
 | `WebGPURenderer` | 下一代 WebGPU 技术 | 高端设备/性能极限应用 |
+```jsx
+/**
+ * CSS2DRenderer 与 CSS3DRenderer 代码逻辑一致
+ * 使用 CSS2DRenderer 时，将下面代码的 3D 替换成 2D 即可
+*/
+const ele = document.createElement('div')
+ele.innerHTML = '<p style="background:#fff;padding: 10px;">3D Object</p>'
+const obj = new CSS3DObject(ele)
+obj.position.y = 80
+scene.add(obj)
+
+const css3Renderer = new CSS3DRenderer()
+css3Renderer.setSize(width, height)
+css3Renderer.domElement.style.position = 'absolute'
+css3Renderer.domElement.style.pointerEvents = 'none'
+const div = document.createElement('div')
+div.style.position = 'relative'
+div.appendChild(css3Renderer.domElement)
+c.appendChild(div)
+
+const r = () => {
+  css3Renderer.render(scene, camera)
+  renderer.render(scene, camera)
+  requestAnimationFrame(r)
+}
+r()
+```
+<ThreeJsSceneRenderer />
 &nbsp;
 
 # 4. 控制器
