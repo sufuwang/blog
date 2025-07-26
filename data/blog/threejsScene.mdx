@@ -92,13 +92,49 @@ r()
 &nbsp;
 
 # 2. 摄像机
-| 类名 | <div style={{ minWidth: '100px' }}>名称</div> | <div style={{ whiteSpace: 'nowrap' }}>是否透视</div> | <div style={{ minWidth: '100px' }}>用途</div> |
-| -------------------- | -------- | ---- | -------- |
-| `PerspectiveCamera` | 透视摄像机 | ✅ | 真实 3D 场景 |
-| `OrthographicCamera` | 正交摄像机 | ❌ | 2D、工程图 |
-| `CubeCamera` | 立方体摄像机 | ✅ | 环境贴图/反射 |
-| `ArrayCamera` | 数组摄像机 | ✅ | 多视角渲染 |
-| `WebXRCamera` | WebXR摄像机 | ✅ | VR/AR 场景 |
+| <div style={{ minWidth: '100px' }}>名称</div> | 相机类型 | <div style={{ whiteSpace: 'nowrap', minWidth: '160px' }}>用途</div> | <div style={{ whiteSpace: 'nowrap' }}>自动更新</div> | <div style={{ whiteSpace: 'nowrap' }}>透视效果</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '160px' }}>特点/限制</div>      |
+| --- | ---------------------- | --------------------- | ------ | ------- | ---------- |
+| 透视摄像机 | `PerspectiveCamera`  | 常规 3D 场景、人眼视角模拟       | ❌      | ✅     | 默认最常用      |
+| 正交摄像机 | `OrthographicCamera` | 2D、CAD、建筑、UI、工程图      | ❌      | ❌     | 无透视畸变      |
+| 立方体摄像机 | `CubeCamera`         | 生成环境贴图、反射镜面等          | ✅    | ✅     | 6 向拍摄      |
+| 数组摄像机 | `ArrayCamera`        | 多视图、分屏、立体视觉           | ❌      | ✅     | 可用于 VR 眼睛等 |
+| WebXR摄像机 | `WebXRCamera`        | WebXR 模式（如 VR 设备）自动创建 | ✅    | ✅     | 头显专用，自动控制  |
+```jsx
+const rgbeLoader = new RGBELoader()
+rgbeLoader.load('/material/city/san_giuseppe_bridge_2k.hdr', (texture) => {
+  texture.mapping = THREE.EquirectangularReflectionMapping
+  scene.background = texture
+})
+
+// 添加一个动态反射的球体
+const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
+  format: THREE.RGBAFormat,
+  generateMipmaps: true,
+  minFilter: THREE.LinearMipmapLinearFilter,
+})
+
+const cubeCamera = new THREE.CubeCamera(1, 1000, cubeRenderTarget)
+scene.add(cubeCamera)
+
+const sphereGeo = new THREE.SphereGeometry(50, 32, 32)
+const reflectiveMaterial = new THREE.MeshBasicMaterial({
+  envMap: cubeRenderTarget.texture,
+})
+const sphere = new THREE.Mesh(sphereGeo, reflectiveMaterial)
+scene.add(sphere)
+
+// 动画循环
+function animate() {
+  cubeCamera.position.copy(sphere.position)
+  cubeCamera.update(renderer, scene)
+
+  renderer.render(scene, camera)
+  requestAnimationFrame(animate)
+}
+
+animate()
+```
+<ThreeJsSceneCamera />
 &nbsp;
 
 # 3. 渲染器
