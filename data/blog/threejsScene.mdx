@@ -20,6 +20,75 @@ summary: ''
 | 聚光灯 | `THREE.SpotLight` | ✅ | ✅ | ✅ | 有方向、有范围、有角度，适合舞台灯、聚焦灯等 |
 | 平行光 | `THREE.HemisphereLight` | ❌ | ❌ | ❌ | 顶部天空色 + 底部地面色的混合光，模拟自然环境光 |
 | <div style={{ whiteSpace: 'nowrap' }}>矩形区域光</div> | `THREE.RectAreaLight` | ✅ | ✅ | ❌ | 模拟面光源，面光源、窗户、广告牌光 |
+<ThreeJsSceneLight />
+## 1.1 阴影
+```jsx
+const c = ref.current!
+const scene = new THREE.Scene()
+
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+})
+const { width, height } = getSizeByScreenRatio(c.clientWidth)
+renderer.setSize(width, height)
+renderer.setClearColor('lightblue')
+// 开启全局阴影支持
+renderer.shadowMap.enabled = true
+
+const axesHelper = new THREE.AxesHelper(60)
+scene.add(axesHelper)
+
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
+camera.position.set(300, 300, 0)
+camera.lookAt(0, 0, 0)
+
+const light = new THREE.PointLight(0xffffff, 40000)
+light.position.set(60, 260, 60)
+// 控制从光源开始能看到阴影的最近距离
+light.shadow.camera.near = 1
+// 控制从光源开始能看到阴影的最远距离
+light.shadow.camera.far = 360
+// 表示该光源会产生阴影
+light.castShadow = true
+
+const helper = new THREE.PointLightHelper(light, 10)
+scene.add(light, helper)
+
+const cameraHelper = new THREE.CameraHelper(light.shadow.camera)
+scene.add(cameraHelper)
+
+const boxGeo = new THREE.BoxGeometry(60, 60, 60)
+const boxMaterial = new THREE.MeshStandardMaterial({
+  color: 'rgb(180,180,180)',
+})
+const box = new THREE.Mesh(boxGeo, boxMaterial)
+// 表示这个物体会投射阴影到其他开启了 receiveShadow 的物体上
+box.castShadow = true
+scene.add(box)
+
+const planeGeo = new THREE.PlaneGeometry(180, 180)
+const planeMaterial = new THREE.MeshStandardMaterial({
+  color: 'white',
+  side: THREE.DoubleSide,
+})
+const plane = new THREE.Mesh(planeGeo, planeMaterial)
+// 表示这个物体可以接收阴影
+plane.receiveShadow = true
+plane.rotateX(Math.PI / 2)
+plane.position.set(0, -60, 0)
+scene.add(plane)
+
+new OrbitControls(camera, renderer.domElement)
+
+c.appendChild(renderer.domElement)
+
+const r = () => {
+  renderer.render(scene, camera)
+  requestAnimationFrame(r)
+}
+r()
+```
+<ThreeJsSceneLightShadow />
 &nbsp;
 
 # 2. 摄像机
