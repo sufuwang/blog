@@ -197,6 +197,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@amap/amap-jsapi-loader@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@amap/amap-jsapi-loader@npm:1.0.1"
+  checksum: 9fedc17818b5ab07527340a2e6a50546069a3ec27589a0a504b3c524dc33c26757a34486e65fc3d2a926537b2699912ff9f6e0c336685bb8f7e599995c1002f8
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.2.0":
   version: 2.3.0
   resolution: "@ampproject/remapping@npm:2.3.0"
@@ -13331,6 +13338,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tailwind-nextjs-starter-blog@workspace:."
   dependencies:
+    "@amap/amap-jsapi-loader": ^1.0.1
     "@ant-design/nextjs-registry": ^1.0.2
     "@ant-design/v5-patch-for-react-19": ^1.0.3
     "@eslint/eslintrc": ^3.2.0
