@@ -202,7 +202,7 @@ r()
 &nbsp;
 
 # 5. 资源加载
-| <div style={{ whiteSpace: 'nowrap', minWidth: '120px' }}>加载器</div> | <div style={{ whiteSpace: 'nowrap' }}>加载类型</div> | 类名 | <div style={{ whiteSpace: 'nowrap', minWidth: '180px' }}>文件格式</div> | <div style={{ whiteSpace: 'nowrap' }}>是否异步</div> |
+| <div style={{ whiteSpace: 'nowrap', minWidth: '120px' }}>加载器</div> | <div style={{ whiteSpace: 'nowrap', minWidth: '100px' }}>加载类型</div> | 类名 | <div style={{ whiteSpace: 'nowrap', minWidth: '180px' }}>文件格式</div> | <div style={{ whiteSpace: 'nowrap' }}>是否异步</div> |
 | ---------- | -------- | ------------------------- | ------------------------- | --------------------------- |
 | 贴图加载器 | 图片纹理 | `THREE.TextureLoader` | `.jpg`, `.png`, `.webp` 等 | ✅ |
 | 立方体贴图加载器 | 环境贴图 | `THREE.CubeTextureLoader` | 六面图 | ✅ |
@@ -214,8 +214,56 @@ r()
 | 字体加载器 | 字体数据 | `FontLoader` | `.json` | ✅ |
 | 音频加载器 | 音频文件 | `AudioLoader` | `.mp3`, `.ogg` 等 | ✅ |
 | 视频纹理 | 视频流 | `VideoTexture` | `.mp4`, `.webm` 等 | ❌ |
-| Draco 解码器 | 压缩 GLTF | `DRACOLoader` | `.glb`（压缩） | ✅ |
+| Draco 解码器 | 压缩 GLTF | `DRACOLoader` | `.drc`、压缩的 `gltf/glb` | ✅ |
 | KTX2 加载器 | 压缩贴图 | `KTX2Loader` | `.ktx2` | ✅ |
+```jsx
+// 贴图加载器
+const loader = new THREE.TextureLoader()
+const texture = loader.load('/static/images/heart.png')
+const boxGeo = new THREE.BoxGeometry(60, 60, 60)
+const material = new THREE.MeshStandardMaterial({
+  color: 'rgb(180,180,180)',
+  map: texture,
+})
+scene.add(new THREE.Mesh(boxGeo, material))
+
+// 立方体贴图加载器
+const textureLoader = new THREE.CubeTextureLoader()
+const texture = textureLoader
+  .setPath('/material/forest/')
+  .load(['nx.png', 'ny.png', 'nz.png', 'px.png', 'py.png', 'pz.png'])
+scene.background = texture
+
+// HDR 环境贴图
+const rgbeLoader = new RGBELoader()
+rgbeLoader.load('/material/city/san_giuseppe_bridge_2k.hdr', (texture) => {
+  texture.mapping = THREE.EquirectangularReflectionMapping
+  scene.background = texture
+})
+
+/**
+ * GLTF 模型加载器
+ * Draco 解码器
+*/
+const loader = new GLTFLoader()
+const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
+loader.setDRACOLoader(dracoLoader)
+loader.load('/model/angryBird/scene.glb', (gltf) => {
+  gltf.scene.scale.set(180, 180, 180)
+  scene.add(gltf.scene)
+})
+
+// 音频加载器
+const listener = new THREE.AudioListener()
+const audio = new THREE.Audio(listener)
+const audioLoader = new THREE.AudioLoader()
+audioLoader.load('/audio/superman.mp3', (buffer) => {
+  audio.setBuffer(buffer)
+})
+audio.play()
+```
+<ThreeJsSceneLoadResource />
 &nbsp;
 
 # 7. 创建 Mesh

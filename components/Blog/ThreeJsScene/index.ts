@@ -4,6 +4,7 @@ import ThreeJsSceneLight from './light'
 import ThreeJsSceneLightShadow from './lightShadow'
 import ThreeJsSceneCamera from './camera'
 import ThreeJsSceneRenderer from './renderer'
+import ThreeJsSceneLoadResource from './loadResource'
 
 const Comps = {
   ThreeJsSceneGuiControl,
@@ -12,6 +13,7 @@ const Comps = {
   ThreeJsSceneLightShadow,
   ThreeJsSceneCamera,
   ThreeJsSceneRenderer,
+  ThreeJsSceneLoadResource,
 }
 
 export default Comps
