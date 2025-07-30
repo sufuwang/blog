@@ -1,7 +1,7 @@
 ---
 title: '简历'
 date: '2024-12-01'
-lastmod: '2024-12-18'
+lastmod: '2025-7-30'
 tags: ['mine']
 sticky: true
 draft: false
@@ -37,74 +37,10 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   ].map((row, key) => ({ ...row, key }))}
 />
 
-## 技术栈
-<Table
-  size='small'
-  className='not-prose overflow-x-auto'
-  pagination={false}
-  bordered
-  columns={[
-    { title: '方向', dataIndex: 'catalog', minWidth: '80px' },
-    { title: '技术', dataIndex: 'technique' },
-  ]}
-  dataSource={[
-    {
-      catalog: '前端',
-      techniques: [
-        { text: 'Vue', status: 2 },
-        { text: 'React', status: 1 },
-        { text: 'Nuxt', status: 0, doing: false },
-        { text: 'Next', status: 0, doing: false },
-        { text: 'Uniapp', status: 2 },
-        { text: 'Three.js', status: 0, doing: true },
-        { text: 'Vite', status: 1 },
-        { text: 'Webpack', status: 1 },
-        { text: 'TypeScript', status: 2 },
-      ]
-    },
-    {
-      catalog: '后端',
-      techniques: [
-        { text: 'Nest', status: 0, doing: false },
-        { text: 'Mysql', status: 0 },
-        { text: 'Redis', status: 0 },
-        { text: 'Nginx', status: 0 },
-        { text: 'Docker', status: 1 },
-      ]
-    },
-    {
-      catalog: '建模',
-      techniques: [
-        { text: 'Blender', status: 0, doing: true },
-      ]
-    },
-    {
-      catalog: '自动化',
-      techniques: [
-        { text: 'LabView', status: 1 },
-      ]
-    },
-  ].map((row, key) => {
-    return {
-      key,
-      catalog: row.catalog,
-      technique: row.techniques.map((tech) =>
-        <Tag
-          className='!my-[2px]'
-          bordered={tech.doing !== undefined}
-          icon={tech.doing ? <Badge status="processing" className='!mr-1' /> : tech.doing === false ? <Badge status="warning" className='!mr-1' /> :''}
-          color={tech.doing ? 'processing' : tech.doing === false ? 'warning' : ''}
-        >
-          {tech.text}
-        </Tag>
-      ),
-    }
-  })}
-/>
-
-## 教育背景
+## 教育背景（含科研成果）
 <Collapse
   size='small'
+  defaultActiveKey={['0', '1']}
   items={[
     {
       label: <div>本科 / ⻄安建筑科技⼤学华清学院 / 信息与控制⼯程学院 / 智能建筑 / 2014-2018</div>,
@@ -118,15 +54,18 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
     {
       label: <div>硕士 / ⻄安建筑科技⼤学 / 信息与控制⼯程学院 / 控制⼯程 / 2018-2021</div>,
       children: <ul className="m-0">
+        <li>发表论⽂《多接⼊边缘计算中的任务卸载决策研究》(基于蚁群算法的多任务卸载性能优化)</li>
+        <li>申请多篇发明专利 （专利名称/专利授权号）</li>
+        <ol>
+          <li>《基于 Hadoop 和 Docker 的环境系统的部署⽅法》/ CN112882726A</li>
+          <li>《一种兼具新风与净化功能的绿植墙系统》/ CN209978285U</li>
+          <li>《一种用于仿昆虫式扑翼无人机的控制电路》/ CN209486518U</li>
+          <li>《⼀种混凝⼟整平装置⽤整平效果测量⽅法、系统及装置》/ CN113280765A</li>
+        </ol>
         <li>参与多个国家级研究课题</li>
         <ol>
           <li>在与成电联合研究⽆⼈机的课题中，负责⽆⼈机⻜控系统研发</li>
-          <li>在室内温控系统的课题中，负责⽹络、可视化的研发</li>
-        </ol>
-        <li>发表两篇发明专利 （专利名称/专利授权号）</li>
-        <ol>
-          <li>《⼀种混凝⼟整平装置⽤整平效果测量⽅法、系统及装置》/ 202110588053.X</li>
-          <li>《基于 Hadoop 和 Docker 的环境系统的部署⽅法》/ 202110107308.6</li>
+          <li>在智能楼宇系统的课题中，负责⽹络、可视化的研发</li>
         </ol>
         <li>负责多个项目开发</li>
         <ol>
@@ -135,7 +74,6 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
           <li>使⽤ LabView 和 myRIO 为成都电⼦科技⼤学开发⽆⼈机⻜控系统</li>
           <li>使⽤ LabView 为中国农业⼤学物理实验室开发智能设备协议控制平台</li>
         </ol>
-        <li>研究蚁群算法对边缘计算的性能优化，发表论⽂《多接⼊边缘计算中的任务卸载决策研究》</li>
         <li>代表学校参与全国创新创业⼤赛智慧农业板块获得三等奖</li>
         <li>在北京智者天下科技有限公司（知乎）的技术中台部⻔实习，参与内部 OA 平台开发</li>
       </ul>,
@@ -146,6 +84,7 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
 ## 工作经历
 <Collapse
   size='small'
+  defaultActiveKey={['0', '1']}
   items={[
     {
       label: <div>深圳 / 腾讯集团 / 云与智慧产业事业群(CSIG)-医疗与健康事业部 / 2021.7-2024.1</div>,
@@ -228,6 +167,71 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
   ].map((row, key) => ({ ...row, key }))}
 />
 
+## 技术栈
+<Table
+  size='small'
+  className='not-prose overflow-x-auto'
+  pagination={false}
+  bordered
+  columns={[
+    { title: '方向', dataIndex: 'catalog', minWidth: '80px' },
+    { title: '技术', dataIndex: 'technique' },
+  ]}
+  dataSource={[
+    {
+      catalog: '前端',
+      techniques: [
+        { text: 'Vue', status: 2 },
+        { text: 'React', status: 1 },
+        { text: 'Nuxt', status: 0, doing: false },
+        { text: 'Next', status: 0, doing: false },
+        { text: 'Uniapp', status: 2 },
+        { text: 'Three.js', status: 0, doing: true },
+        { text: 'Vite', status: 1 },
+        { text: 'Webpack', status: 1 },
+        { text: 'TypeScript', status: 2 },
+      ]
+    },
+    {
+      catalog: '后端',
+      techniques: [
+        { text: 'Nest', status: 0, doing: false },
+        { text: 'Mysql', status: 0 },
+        { text: 'Redis', status: 0 },
+        { text: 'Nginx', status: 0 },
+        { text: 'Docker', status: 1 },
+      ]
+    },
+    {
+      catalog: '建模',
+      techniques: [
+        { text: 'Blender', status: 0, doing: true },
+      ]
+    },
+    {
+      catalog: '自动化',
+      techniques: [
+        { text: 'LabView', status: 1 },
+      ]
+    },
+  ].map((row, key) => {
+    return {
+      key,
+      catalog: row.catalog,
+      technique: row.techniques.map((tech) =>
+        <Tag
+          className='!my-[2px]'
+          bordered={tech.doing !== undefined}
+          icon={tech.doing ? <Badge status="processing" className='!mr-1' /> : tech.doing === false ? <Badge status="warning" className='!mr-1' /> :''}
+          color={tech.doing ? 'processing' : tech.doing === false ? 'warning' : ''}
+        >
+          {tech.text}
+        </Tag>
+      ),
+    }
+  })}
+/>
+
 ## 自研项目
 <Table
   size='small'
@@ -285,14 +289,14 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
         { link: 'https://github.com/vitejs/vite/pulls?q=is%3Apr+author%3Asufuwang', text: 'Github PR' },
         { link: 'https://github.com/vitejs/vite/issues?q=is%3Aissue+author%3Asufuwang', text: 'Github Issues' },
       ],
-      desc: '解决 Vite 在打包时，错误栈溢出问题',
+      desc: '解决 Vite 存的缺陷',
     },
     {
       module: 'VitePress',
       rows: [
         { link: 'https://github.com/vuejs/vitepress/issues?q=is%3Aissue+author%3Asufuwang+', text: 'Github Issues' },
       ],
-      desc: '讨论主题切换的回调问题'
+      desc: '解决插件问题'
     },
     {
       module: 'Uniapp',
@@ -307,14 +311,14 @@ summary: '在人类历史长河中，前人已经积攒了很多经验，我们�
         { link: 'https://github.com/Tencent/tdesign-vue-next/pulls?q=is%3Apr+author%3Asufuwang', text: 'Github PR'},
         { link: 'https://github.com/Tencent/tdesign-vue-next/issues?q=is%3Aissue+author%3Asufuwang', text: 'Github Issues' },
       ],
-      desc: '维护 Vue3 版本下的 Tree 组件',
+      desc: `维护 Vue3 版本组件（腾讯前端组件库）`,
     },
     {
       module: 'DevCloudFE',
       rows: [
         { link: 'https://github.com/DevCloudFE/vue-devui/pulls?q=is%3Apr+author%3Asufuwang', text: 'Github PR'},
       ],
-      desc: '维护 Vue3 版本下的 Tree 组件',
+      desc: '维护 Vue3 版本组件（华为前端组件库）',
     },
   ].map((row) => ({
     ...row,
