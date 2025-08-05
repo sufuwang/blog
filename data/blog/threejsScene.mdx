@@ -199,6 +199,14 @@ r()
 | `PointerLockControls` | ❌（移动场景） | ✅（视角） | ❌ | ❌ | 第一人称、游戏 |
 | `FirstPersonControls` | ✅ | ✅ | ❌ | ❌ | 走动式浏览体验 |
 | `FlyControls` | ✅ | ✅ | ✅ | ❌ | 飞行自由漫游场景 |
+```jsx
+new DragControls([box], camera, renderer.domElement)
+
+const transformControls = new TransformControls(camera, renderer.domElement)
+transformControls.attach(box)
+scene.add(transformControls.getHelper())
+```
+<ThreeJsSceneControls />
 &nbsp;
 
 # 5. 资源加载
