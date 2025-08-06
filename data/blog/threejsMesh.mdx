@@ -1,0 +1,225 @@
+---
+title: 'THREE.js 技能: 创建 Mesh'
+date: '2025-08-05'
+lastmod: '2025-08-05'
+tags: ['2025', 'Tech', 'THREE.js']
+sticky: false
+draft: false
+summary: ''
+---
+
+<TOCInline toc={props.toc} exclude="Introduction" />
+&nbsp;
+
+# 1. 线
+| 曲线类名 | 说明 |
+| - | - |
+| `Line` | 线段 |
+| `LineLoop` | 自闭合线段 |
+| `LineCurve` | `THREE.Line` 用于“可视化显示线段”，`THREE.LineCurve` 用于“数学定义路径” |
+| `LineCurve3`  | 三维 `THREE.LineCurve` |
+| `QuadraticBezierCurve`  | 二维二次贝塞尔曲线 |
+| `CubicBezierCurve`  | 二维三次贝塞尔曲线 |
+| `QuadraticBezierCurve3` | 三维二次贝塞尔曲线 |
+| `CubicBezierCurve3` | 三维三次贝塞尔曲线 |
+| `ArcCurve` | 圆弧 |
+| `EllipseCurve`  | 椭圆 |
+| `CatmullRomCurve3` | 平滑连接多个三维点的曲线（常用于轨迹）|
+| `SplineCurve` | 平滑连接二维点的样条曲线 |
+```tsx
+// Line & LineLoop
+const points = [
+  new THREE.Vector3(0, 60, 0),
+  new THREE.Vector3(0, 0, 60),
+  new THREE.Vector3(60, 0, 0),
+  new THREE.Vector3(0, 60, 0), // LineLoop 不需要此点，即可完成合并
+]
+const geometry = new THREE.BufferGeometry()
+const material = new THREE.LineBasicMaterial({ color: '#ffffff' })
+geometry.setFromPoints(points)
+scene.add(new THREE.Line(geometry, material))
+// scene.add(new THREE.LineLoop(geometry, material))
+
+const getLineMesh = (path) => {
+  const geometry = new THREE.BufferGeometry().setFromPoints(path.getPoints(100))
+  const material = new THREE.LineBasicMaterial({ color: 0xffffff })
+  return new THREE.Line(geometry, material)
+}
+
+// LineCurve
+const path = new THREE.CurvePath<THREE.Vector2>()
+path.add(new THREE.LineCurve(new THREE.Vector2(0, 60), new THREE.Vector2(60, 0)))
+scene.add(getLineMesh(path))
+
+// LineCurve3
+const path = new THREE.CurvePath<THREE.Vector3>()
+path.add(
+  new THREE.LineCurve3(new THREE.Vector3(60, 0, 0), new THREE.Vector3(0, 0, 60))
+)
+scene.add(getLineMesh(path))
+
+// QuadraticBezierCurve
+const curve = new THREE.QuadraticBezierCurve(
+  new THREE.Vector2(0, 0),
+  new THREE.Vector2(50, 100),
+  new THREE.Vector2(100, 0)
+)
+scene.add(getLineMesh(curve))
+
+// QuadraticBezierCurve3
+const curve = new THREE.QuadraticBezierCurve3(
+  new THREE.Vector3(0, 0, 20),
+  new THREE.Vector3(-50, 100, 20),
+  new THREE.Vector3(-100, 0, 20)
+)
+scene.add(getLineMesh(curve))
+
+// CubicBezierCurve
+const curve = new THREE.CubicBezierCurve(
+  new THREE.Vector2(0, 0),
+  new THREE.Vector2(50, 100),
+  new THREE.Vector2(80, 10),
+  new THREE.Vector2(150, 0)
+)
+scene.add(getLineMesh(curve))
+
+// CubicBezierCurve3
+const curve = new THREE.CubicBezierCurve3(
+  new THREE.Vector3(0, 0, 20),
+  new THREE.Vector3(-50, 100, 20),
+  new THREE.Vector3(-80, 10, 20),
+  new THREE.Vector3(-150, 0, 20)
+)
+scene.add(getLineMesh(curve))
+
+// ArcCurve
+const curve = new THREE.ArcCurve(0, 0, 60, 0, Math.PI)
+scene.add(getLineMesh(curve))
+
+// EllipseCurve
+const curve = new THREE.EllipseCurve(0, 0, 100, 60, 0, Math.PI)
+scene.add(getLineMesh(curve))
+```
+<ThreeJsMeshLine />
+&nbsp;
+
+# 2. 规则几何体
+| 几何体 | 构造函数 | 参数说明 |
+| - | - | - |
+| **立方体** | `BoxGeometry` | 也可传入段数 |
+| **球体** | `SphereGeometry` | 经常用于星球 |
+| **圆柱体** | `CylinderGeometry` | 圆锥体也可以通过 top/bottom 调整 |
+| **圆锥体** | `ConeGeometry` | 底部圆形、顶部尖 |
+| **圆形** | `CircleGeometry` | 用于基础面片 |
+| **平面** | `PlaneGeometry` | 常用于地面或背景 |
+| **环形** | `RingGeometry` | 用于圆环等 |
+| **圆环体（甜甜圈）** | `TorusGeometry` | 中空圆体 |
+| **圆环结（拓扑结）** | `TorusKnotGeometry` | 特别适合做动画或展示 |
+| **四面体** | `TetrahedronGeometry` | 金字塔型几何 |
+| **八面体** | `OctahedronGeometry` | 正八面体 |
+| **十二面体** | `DodecahedronGeometry` | 正十二面体 |
+| **二十面体** | `IcosahedronGeometry` | 用于建模多面体 |
+```tsx
+const getMesh = (
+  geometry,
+  materialParameters: THREE.MeshBasicMaterialParameters = {}
+) => {
+  const material = new THREE.MeshBasicMaterial(materialParameters)
+  return new THREE.Mesh(geometry, material)
+}
+
+scene.add(getMesh(new THREE.BoxGeometry(40, 40, 40)))
+scene.add(getMesh(new THREE.SphereGeometry(40)))
+// radiusTop: 60, radiusBottom: 60, height: 60
+scene.add(getMesh(new THREE.CylinderGeometry(60, 60, 60)))
+// radius: 60, height: 60
+scene.add(getMesh(new THREE.ConeGeometry(60, 60)))
+scene.add(getMesh(new THREE.CircleGeometry(60)))
+scene.add(getMesh(new THREE.PlaneGeometry(60, 60), { side: THREE.DoubleSide }))
+// innerRadius: 60, outerRadius: 66
+scene.add(getMesh(new THREE.RingGeometry(60, 66)))
+// radius: 60, tube: 16
+scene.add(getMesh(new THREE.TorusGeometry(60, 16)))
+scene.add(getMesh(new THREE.TorusKnotGeometry(60, 16), { wireframe: true }))
+scene.add(getMesh(new THREE.TetrahedronGeometry(80), { wireframe: true }))
+scene.add(getMesh(new THREE.OctahedronGeometry(80), { wireframe: true }))
+scene.add(getMesh(new THREE.DodecahedronGeometry(80), { wireframe: true }))
+scene.add(getMesh(new THREE.IcosahedronGeometry(80), { wireframe: true }))
+```
+<ThreeJsMeshRegularGeometry />
+&nbsp;
+
+# 3. 不规则几何体
+| 几何体类型 | 类名 | 说明 |
+| - | - | - |
+| **凸包几何体** | `ConvexGeometry` | 根据一组点生成凸包几何体 |
+| **Shape 几何体** | `ShapeGeometry` | 根据 2D `Shape` 生成 3D 表面 |
+| **拉伸几何体** | `ExtrudeGeometry` | 根据二维轮廓拉伸出三维形状 |
+| **旋转几何体** | `LatheGeometry` | 将二维点旋转生成三维体（如酒杯、花瓶） |
+| **管道几何体** | `TubeGeometry` | 沿曲线路径生成管道模型 |
+| **参数曲面** | `ParametricGeometry` | 通过自定义函数生成任意表面形状 |
+| **<span style={{ borderBottom: '2px dashed #000000' }}>Text 几何体</span>** | `TextGeometry` | 将文字变成三维模型（需加载字体） |
+```tsx
+// 凸包几何体
+const points: THREE.Vector3[] = [
+  new THREE.Vector3(0, 0, 0),
+  new THREE.Vector3(60, 0, 0),
+  new THREE.Vector3(0, 60, 0),
+  new THREE.Vector3(0, 0, 60),
+]
+const geometry = new ConvexGeometry(points)
+const material = new THREE.MeshBasicMaterial({ wireframe: true })
+scene.add(new THREE.Mesh(geometry, material))
+
+// Shape / 拉伸几何体
+const shape = new THREE.Shape()
+shape.moveTo(0, 0)
+shape.lineTo(0, 60)
+shape.lineTo(60, 60)
+shape.lineTo(60, 0)
+const path = new THREE.Path()
+path.arc(30, 30, 20, 0, Math.PI * 4, false)
+shape.holes.push(path)
+// const geometry = new THREE.ShapeGeometry(shape)
+const geometry = new THREE.ExtrudeGeometry(shape, { depth: 12 })
+const material = new THREE.MeshLambertMaterial({ wireframe: true })
+scene.add(new THREE.Mesh(geometry, material))
+
+// 旋转几何体
+const points = [
+  new THREE.Vector2(0, 0),
+  new THREE.Vector2(50, 20),
+  new THREE.Vector2(40, 40),
+  new THREE.Vector2(20, 60),
+  new THREE.Vector2(0, 80),
+]
+const geometry = new THREE.LatheGeometry(points, 20)
+const material = new THREE.MeshLambertMaterial({ wireframe: true })
+scene.add(new THREE.Mesh(geometry, material))
+
+// 管道几何体
+const points = [
+  new THREE.Vector3(-100, 50, 50),
+  new THREE.Vector3(50, 150, 0),
+  new THREE.Vector3(100, 0, 100),
+  new THREE.Vector3(100, 50, -50),
+]
+const curve = new THREE.CubicBezierCurve3(...points)
+const geometry = new THREE.TubeGeometry(curve, 100, 20, 20)
+const material = new THREE.MeshBasicMaterial({ wireframe: true })
+scene.add(new THREE.Mesh(geometry, material))
+
+// 参数曲面
+const func = (u, v, target) => {
+  const _u = u * Math.PI
+  const _v = v * 2 * Math.PI
+  const x = Math.sin(_u) * Math.cos(_v)
+  const y = Math.sin(_u) * Math.sin(_v)
+  const z = Math.cos(_u)
+  target.set(x * 60, y * 60, z * 60)
+}
+const geometry = new ParametricGeometry(func, 50, 50)
+const material = new THREE.MeshNormalMaterial()
+scene.add(new THREE.Mesh(geometry, material))
+```
+<ThreeJsMeshIrRegularGeometry />

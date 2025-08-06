@@ -8,6 +8,7 @@ import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
 import CountDown from './Blog/CountDown'
 import ThreeJsSceneComps from '@/components/Blog/ThreeJsScene/index'
+import ThreeJsMeshComps from '@/components/Blog/ThreeJsMesh/index'
 
 export const components: MDXComponents = {
   Image,
@@ -23,4 +24,5 @@ export const components: MDXComponents = {
   Tag,
   CountDown,
   ...ThreeJsSceneComps,
+  ...ThreeJsMeshComps,
 }
