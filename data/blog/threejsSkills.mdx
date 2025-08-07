@@ -81,12 +81,79 @@ scene.add(plane)
 | Cannon 引擎模拟规则物体   | `CANNON.World`            | cannon.tsx |
 | Cannon 引擎模拟不规则物体  | `CANNON.ConvexPolyhedron` | cannon.tsx |
 
-# 8. 页面操作
+# 8. 浏览器相关
 | 技能点 | 描述 | 来源 |
 | --- | -- | -- |
 | 页面截屏 | `renderer.domElement.toBlob` | printFlower.tsx |
 | 页面录屏 | `MediaRecorder`              | printFlower.tsx |
 | 帧率检测  | `Stats` | spectrum.tsx |
+<ThreeJsSkillsBrowser />
+```jsx
+const downloadBlob = (blob, filename) => {
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+  // 在每一帧渲染完成之后，保留绘图缓冲区的内容
+  preserveDrawingBuffer: true,
+})
+
+const stats = new Stats()
+stats.dom.style.position = 'absolute'
+c.appendChild(stats.dom)
+
+const orbitControls = new OrbitControls(camera, renderer.domElement)
+
+const x = {
+  downloadImage() {
+    renderer.domElement.toBlob((blob) => {
+      if (blob) {
+        downloadBlob(blob, 'browser.png')
+      }
+    }, 'image/png')
+  },
+  onDownloadVideo() {
+    const stream = renderer.domElement.captureStream(60)
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' })
+    orbitControls.autoRotate = true
+    orbitControls.autoRotateSpeed = 8
+    mediaRecorder.start()
+    mediaRecorder.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        downloadBlob(event.data, 'browser.webm')
+      }
+    }
+    setTimeout(() => {
+      orbitControls.autoRotate = false
+      orbitControls.reset()
+      mediaRecorder.stop()
+    }, 5000)
+  },
+}
+
+const gui = new GUI()
+gui.add(x, 'downloadImage').name('截屏')
+gui.add(x, 'onDownloadVideo').name('录屏')
+gui.domElement.style.position = 'absolute'
+c.appendChild(gui.domElement)
+
+function r() {
+  stats.update()
+  orbitControls.update()
+  renderer.render(scene, camera)
+  requestAnimationFrame(r)
+}
+requestAnimationFrame(r)
+```
+&nbsp;
 
 # 9. 音乐数据处理
 | 技能点 | 描述 | 来源 |
