@@ -9,6 +9,7 @@ import TableWrapper from './TableWrapper'
 import CountDown from './Blog/CountDown'
 import ThreeJsSceneComps from '@/components/Blog/ThreeJsScene/index'
 import ThreeJsMeshComps from '@/components/Blog/ThreeJsMesh/index'
+import ThreeJsSkillsComps from '@/components/Blog/ThreeJsSkills/index'
 
 export const components: MDXComponents = {
   Image,
@@ -25,4 +26,5 @@ export const components: MDXComponents = {
   CountDown,
   ...ThreeJsSceneComps,
   ...ThreeJsMeshComps,
+  ...ThreeJsSkillsComps,
 }

@@ -1,0 +1,112 @@
+---
+title: 'THREE.js 知识: 实用技巧'
+date: '2025-08-06'
+lastmod: '2025-08-06'
+tags: ['2025', 'Tech', 'THREE.js']
+sticky: false
+draft: false
+summary: ''
+---
+
+<TOCInline toc={props.toc} exclude="Introduction" />
+&nbsp;
+
+# 1. 投射阴影
+<ThreeJsSkillsShadow />
+```jsx
+renderer.shadowMap.enabled = true
+
+const light = new THREE.PointLight(0xffffff, 40000)
+light.castShadow = true
+light.shadow.camera.near = 1
+light.shadow.camera.far = 160
+scene.add(light)
+scene.add(new THREE.CameraHelper(light.shadow.camera))
+
+const box = new THREE.Mesh(
+  new THREE.BoxGeometry(40, 40, 40), 
+  new THREE.MeshNormalMaterial()
+)
+box.castShadow = true
+scene.add(box)
+
+const plane = new THREE.Mesh(
+  new THREE.PlaneGeometry(300, 300),
+  new THREE.MeshPhysicalMaterial({ color: 'white', side: THREE.DoubleSide })
+)
+plane.receiveShadow = true
+scene.add(plane)
+```
+&nbsp;
+
+# 2. 粒子系统
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| 粒子系统           | `three.quarks`                              | 3QuarksAngryBird.tsx  |
+| 粒子系统的特殊行为      | `three.quarks` `ParticleSystem.addBehavior` | 3QuarksAngryBird.tsx  |
+| 粒子系统的切图        | `uTileCount` `vTileCount`                   | 3QuarksFishBubble.tsx |
+| 粒子系统的 Emitter  | `GridEmitter` `ConeEmitter` `PointEmitter`  | \-                    |
+| 粒子系统的粒子重组      | `TextureSequencer` `ApplySequences`         | 3QuarksRegroup.tsx    |
+
+# 3. 标注
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| CSS3DRenderer 渲染  | 将 DOM 节点挂载到 Canvas 元素上                              | 3dComputer.tsx                      |
+| CSS2DRenderer 渲染  | 将 DOM 节点挂载到 Canvas 元素上                              | cameraHelper.tsx                    |
+| SpriteText 渲染     | `SpriteText`                                        | barChart.tsx                        |
+| Sprite 渲染         | `THREE.Sprite` `createCanvas` `THREE.CanvasTexture` | cameraHelper.tsx<br/>snowSprite.tsx |
+| Canvas 渲染         | `THREE.CanvasTexture`                               | musicPlayer.tsx                     |
+
+# 4. 模型相关
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| 获取/裁模型尺寸 | `THREE.Box3` `setFromObject` `getCenter<br/>expandByVector` `expandByObject` | 3QuarksAngryBird.tsx<br/>gameAvoidCar.tsx |
+| 碰撞检测 | `THREE.Raycaster`             | 3QuarksAngryBird.tsx                   |
+| 后期处理 | `EffectComposer` `RenderPass` | 3QuarksAngryBird.tsx<br/>raycaster.tsx |
+| 颜色渐变 | `THREE.BufferAttribute` | histogram.tsx |
+| 贴花 | `THREE.Euler`  | base.tsx |
+| 向量夹角点积 | `vectorA.dot(vectorB)` | vectorDotProduct.tsx |
+
+# 6. 动画
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| GLTF 模型的骨骼动画 | `THREE.AnimationMixer`                      | 3QuarksFishBubble.tsx  |
+| 自定义骨骼动画      | `THREE.Bone` `THREE.SkeletonHelper`         | skeletonAnimation.tsx  |
+| Tween 过渡动画   | `Tween` `tweenA.chain(tweenB)`              | 3QuarksFishBubble.tsx  |
+| 混合动画         | `THREE.KeyframeTrack` `THREE.AnimationClip` | distortedAnimation.tsx |
+
+# 7. Cannon 引擎
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| Cannon 引擎模拟规则物体   | `CANNON.World`            | cannon.tsx |
+| Cannon 引擎模拟不规则物体  | `CANNON.ConvexPolyhedron` | cannon.tsx |
+
+# 8. 页面操作
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| 页面截屏 | `renderer.domElement.toBlob` | printFlower.tsx |
+| 页面录屏 | `MediaRecorder`              | printFlower.tsx |
+| 帧率检测  | `Stats` | spectrum.tsx |
+
+# 9. 音乐数据处理
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| 加载音乐       | `AudioListener`                        | dancerBattle.tsx |
+| 音乐频谱数据处理逻辑 | `THREE.AudioAnalyser.getFrequencyData` | musicPlayer.tsx  |
+
+# 10. 第三方库
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| 噪音      | `SimplexNoise`       | fireworm.tsx       |
+| 噪音控制点云  | `simplex-noise`      | randomMountain.tsx |
+| JSX 风格  | `@react-three/fiber` | r3f.tsx            |
+
+# 11. helper
+| 技能点 | 描述 | 来源 |
+| --- | -- | -- |
+| CameraHelper    |           | cameraHelper.tsx      |
+| SpotLightHelper |           | dancerBattle.tsx      |
+| PointLightHelper |   |   |
+| Box3Helper      | 包括渲染、位置更新 | gameAvoidCar.tsx      |
+| SkeletonHelper  |           | skeletonAnimation.tsx |
+| ArrowHelper     |           | vectorDotProduct.tsx  |
