@@ -102,6 +102,7 @@ export default function Shadow() {
       gui.add(x, 'onDownloadVideo').name('录屏')
       gui.domElement.style.position = 'absolute'
       gui.domElement.style.width = '80px'
+      gui.domElement.style.right = '0px'
       c.appendChild(gui.domElement)
 
       function r() {

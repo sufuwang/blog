@@ -82,11 +82,15 @@ scene.add(plane)
 | Cannon 引擎模拟不规则物体  | `CANNON.ConvexPolyhedron` | cannon.tsx |
 
 # 8. 浏览器相关
-| 技能点 | 描述 | 来源 |
-| --- | -- | -- |
-| 页面截屏 | `renderer.domElement.toBlob` | printFlower.tsx |
-| 页面录屏 | `MediaRecorder`              | printFlower.tsx |
-| 帧率检测  | `Stats` | spectrum.tsx |
+<Descriptions
+  bordered
+  size='small'
+  className='not-prose !mb-6'
+  items={[
+    { span: 'filled', label: '未完成', children: '-' },
+    { span: 'filled', label: '已完成', children: '页面截屏、页面录屏、帧率检测' },
+  ].map((row, key) => ({ ...row, key }))}
+/>
 <ThreeJsSkillsBrowser />
 ```jsx
 const downloadBlob = (blob, filename) => {
