@@ -1,0 +1,13 @@
+.timeline {
+  li {
+    > div:global(.ant-timeline-item-label) {
+      width: calc(50% - 144px) !important;
+    }
+    > div:global(.ant-timeline-item-tail), div:global(.ant-timeline-item-head) {
+      inset-inline-start: 38% !important;
+    }
+    > div:global(.ant-timeline-item-content) {
+      inset-inline-start: 38% !important;
+    }
+  }
+}
